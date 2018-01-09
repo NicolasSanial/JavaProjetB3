@@ -1,4 +1,4 @@
 package packageModels;
 
-public class PdfPOJO {
+public class Pdf {
 }
