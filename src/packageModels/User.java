@@ -2,7 +2,7 @@ package packageModels;
 
 import java.util.Date;
 
-public class UserPOJO {
+public class User {
 
     private int id;
     private String login;
@@ -13,7 +13,7 @@ public class UserPOJO {
     private Date birthday;
 
     /* Constructor with all fields*/
-    public UserPOJO(String login, String password, String firstName, String lastName, String email, Date birthday) {
+    public User(String login, String password, String firstName, String lastName, String email, Date birthday) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -23,7 +23,7 @@ public class UserPOJO {
     }
 
     /* Without firstName, lastName, birthday */
-    public UserPOJO(String login, String password, String email) {
+    public User(String login, String password, String email) {
         this.login = login;
         this.password = password;
         this.email = email;
