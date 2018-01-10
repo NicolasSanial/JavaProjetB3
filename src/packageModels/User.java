@@ -1,5 +1,7 @@
 package packageModels;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class User {
@@ -12,7 +14,17 @@ public class User {
     private String email;
     private Date birthday;
 
-    /* Constructor with all fields*/
+    /* Constructor with all fields without birthday (for test data loading) */
+    public User(int id, String login, String password, String firstName, String lastName, String email) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    /* Constructor with all fields without id (for the auto increment of id in BD) */
     public User(String login, String password, String firstName, String lastName, String email, Date birthday) {
         this.login = login;
         this.password = password;
