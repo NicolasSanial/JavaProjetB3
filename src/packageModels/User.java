@@ -1,7 +1,5 @@
 package packageModels;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class User {
@@ -96,6 +94,7 @@ public class User {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
+
 }
 
 

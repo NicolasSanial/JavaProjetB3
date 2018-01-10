@@ -7,13 +7,15 @@ import java.util.List;
 public class UserGestionList {
 
     /* constructor for the singleton */
-    protected UserGestionList() {}
+    private UserGestionList() {
+        loadUserintoList();
+    }
 
     /* initialisation du singleton */
-    private static UserGestionList instance = new UserGestionList();
+    private static UserGestionList instance = null;
 
     /* method how allow you to get the user list instance */
-    public UserGestionList getInstance(){
+    public static UserGestionList getInstance(){
         if(instance == null){
             instance = new UserGestionList();
         }
@@ -121,6 +123,5 @@ public class UserGestionList {
         listUser.add(new User(3, "aristote","passwordabc" ,"mickael","dicurzio","micka.dic@smile.fr"));
 
     }
-
 }
 
