@@ -15,7 +15,7 @@ public class AdminView extends Application {
     /* Method who configure the initialisation of the administration view */
     @Override
     public void start(Stage adminStage) {
-        adminStage.setTitle("Allo");
+        adminStage.setTitle("Panneau d'administration");
         Group adminGroup = new Group();
         Scene adminScene = new Scene(adminGroup, 600, 550, Color.LIGHTGREY);
 

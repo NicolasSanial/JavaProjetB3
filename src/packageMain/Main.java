@@ -7,6 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        /* launching of the first view */
         Application.launch(ConnectionView.class, args);
     }
 }
