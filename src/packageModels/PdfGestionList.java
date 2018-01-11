@@ -1,4 +1,4 @@
 package packageModels;
 
-public class PdfGestionList extends Pdf {
+public class PdfGestionList {
 }
