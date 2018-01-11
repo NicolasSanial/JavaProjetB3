@@ -17,7 +17,7 @@ public class AdminView extends Application {
     * Method who implement the start of the administration view
     */
     @Override
-    public void start(Stage adminStage) {
+    public void start(Stage adminStage){
 
         this.adminStage = adminStage;
         adminStage.setTitle("Panneau d'administration");

@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
+import packageConnection.ConnectionView;
 import packageModels.User;
 import packageModels.UserGestionList;
 
@@ -103,5 +105,18 @@ public class AdminController {
             emailLabel.setText("");
             birthdayLabel.setText("");
         }
+    }
+
+    /**
+     * Action of the close button
+     */
+    @FXML
+    private javafx.scene.control.Button closeButton;
+    @FXML
+    private void closeButtonAction() {
+        Stage stageConn = new Stage();
+        new ConnectionView().start(stageConn);
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 }
