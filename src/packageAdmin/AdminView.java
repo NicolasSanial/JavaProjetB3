@@ -1,43 +1,52 @@
 package packageAdmin;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class AdminView extends Application {
 
-    /* Method who configure the initialisation of the administration view */
+    private Stage adminStage;
+
+    /**
+    * Method who implement the start of the administration view
+    */
     @Override
     public void start(Stage adminStage) {
+
+        this.adminStage = adminStage;
         adminStage.setTitle("Panneau d'administration");
-        Group adminGroup = new Group();
-        Scene adminScene = new Scene(adminGroup, 600, 550, Color.LIGHTGREY);
+        initAdminView();
+    }
 
-        Button btnReturn = new Button();
-        btnReturn.setLayoutX(500);
-        btnReturn.setLayoutY(500);
-        btnReturn.setText("Retour");
+    /**
+     * Method who configure the initialisation of the administration view
+     */
+    public void initAdminView() {
+        try {
 
-        /* Action of the return button (TO DO BETTER : event linked with the controller)*/
-        btnReturn.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                adminStage.close();
-            }
-        });
+            // Load admin layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(AdminView.class.getResource("AdminView.fxml"));
+            AnchorPane dataTAbleDisplay = (AnchorPane) loader.load();
 
-        /* display of tableView created with the controller (TO DO BETTER : Try to don't use static method) */
-        TableView dataTable = AdminController.getDataTable();
+            //We create a scene with the loader FXML
+            Scene scene = new Scene(dataTAbleDisplay);
 
-        /* fix all componants on the view */
-        adminGroup.getChildren().add(dataTable);
-        adminGroup.getChildren().add(btnReturn);
-        adminStage.setScene(adminScene);
-        adminStage.show();
+            //We pull the controller to get data
+            AdminController controller = loader.getController();
+            controller.setDataTable(this);
+
+            //Add scene on stage and show stage
+            adminStage.setScene(scene);
+            adminStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
