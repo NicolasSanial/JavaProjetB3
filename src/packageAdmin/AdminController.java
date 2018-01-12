@@ -3,11 +3,13 @@ package packageAdmin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import packageConnection.ConnectionView;
+import packageMain.DateUtil;
 import packageModels.User;
 import packageModels.UserGestionList;
 
@@ -92,8 +94,8 @@ public class AdminController {
             firstNameLabel.setText(user.getFirstName());
             lastNameLabel.setText(user.getLastName());
             emailLabel.setText(user.getEmail());
-            // TODO: We need a way to convert the birthday into a String!
-            // birthdayLabel.setText(...);
+            birthdayLabel.setText(DateUtil.format(user.getBirthday()));
+
         } else {
 
             // User is null, remove all the text
@@ -118,5 +120,28 @@ public class AdminController {
         new ConnectionView().start(stageConn);
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void handleDeleteUser() {
+
+        //Delete user on the front side
+        int selectedIndex = userTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            userTable.getItems().remove(selectedIndex);
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(AdminView.getAdminStage());
+            alert.initOwner(AdminView.getAdminStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a person in the table.");
+
+            alert.showAndWait();
+        }
+
+        //Delete user on the listUser
+        UserGestionList.getInstance().removeUserList(selectedIndex+1);
     }
 }

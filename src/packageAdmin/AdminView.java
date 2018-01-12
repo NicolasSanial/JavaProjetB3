@@ -11,7 +11,9 @@ import java.io.IOException;
 
 public class AdminView extends Application {
 
-    private Stage adminStage;
+    private static Stage adminStage;
+
+    public static Stage getAdminStage() { return adminStage; }
 
     /**
     * Method who implement the start of the administration view
