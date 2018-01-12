@@ -11,8 +11,10 @@ public class ConnectionController {
     */
     @FXML
     private void goPageAdminButtonAction() {
-        Stage stage = new Stage();
-        new AdminView().start(stage);
+        Stage stageAdmin = new Stage();
+        new AdminView().start(stageAdmin);
+        Stage stageConn = (Stage) closeButton.getScene().getWindow();
+        stageConn.close();
     }
 
     /**

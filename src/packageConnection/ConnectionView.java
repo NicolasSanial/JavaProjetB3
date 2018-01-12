@@ -16,7 +16,7 @@ public class ConnectionView extends Application {
     * Method who configure the initialisation of the connection view
     */
     @Override
-    public void start(Stage connectionStage) throws Exception{
+    public void start(Stage connectionStage){
 
         this.connectionStage = connectionStage;
         connectionStage.setTitle("PDF-Stocker");
