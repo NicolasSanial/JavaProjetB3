@@ -5,7 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import packageModels.User;
 
 import java.io.IOException;
 
@@ -49,6 +51,36 @@ public class AdminView extends Application {
             adminStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean showUserForm(User user) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(AdminView.class.getResource("FormView.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage formStage = new Stage();
+            formStage.setTitle("Modification d'un utilisateur");
+            formStage.initModality(Modality.WINDOW_MODAL);
+            formStage.initOwner(adminStage);
+            Scene scene = new Scene(page);
+            formStage.setScene(scene);
+
+            // Set the person into the controller.
+            FormController controller = loader.getController();
+            controller.setFormStage(formStage);
+            controller.setUser(user);
+
+            // Show the dialog and wait until the user closes it
+            formStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

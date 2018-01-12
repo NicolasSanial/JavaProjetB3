@@ -130,18 +130,27 @@ public class AdminController {
         if (selectedIndex >= 0) {
             userTable.getItems().remove(selectedIndex);
         } else {
-            // Nothing selected.
+            // Nothing selected
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(AdminView.getAdminStage());
-            alert.initOwner(AdminView.getAdminStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
+            alert.setTitle("pas de selection");
+            alert.setHeaderText("Aucun utilisateur n'a été selectionné");
+            alert.setContentText("selectionnez un utilisateur dans la liste");
+
 
             alert.showAndWait();
         }
 
         //Delete user on the listUser
         UserGestionList.getInstance().removeUserList(selectedIndex+1);
+    }
+
+    @FXML
+    private void handleCreateUser() {
+        User tempUser;
+        boolean okClicked = AdminView.showPersonEditDialog(tempPerson);
+        if (okClicked) {
+            mainApp.getPersonData().add(tempUser);
+        }
     }
 }
