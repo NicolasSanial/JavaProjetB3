@@ -30,8 +30,8 @@
       <Label fx:id="emailLabel" layoutX="400.0" layoutY="260.0" text="Label" />
       <Label layoutX="250.0" layoutY="300.0" text="Birthday :" />
       <Label fx:id="birthdayLabel" layoutX="400.0" layoutY="300.0" text="Label" />
-      <Button layoutX="230.0" layoutY="350.0" mnemonicParsing="false" text="Ajouter" />
+      <Button layoutX="230.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleCreateUser" text="Ajouter" />
       <Button layoutX="310.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleDeleteUser" text="Supprimer" />
-      <Button layoutX="410.0" layoutY="350.0" mnemonicParsing="false" text="Modifier" />
+      <Button layoutX="410.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Modifier" />
    </children>
 </AnchorPane>
