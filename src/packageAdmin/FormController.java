@@ -100,25 +100,25 @@ public class FormController {
         String errorMessage = "";
 
         if (loginField.getText() == null || loginField.getText().length() == 0) {
-            errorMessage += "No valid last name!\n";
+            errorMessage += "Login non valide !\n";
         }
         if (passwordField.getText() == null || passwordField.getText().length() == 0) {
-            errorMessage += "No valid last name!\n";
+            errorMessage += "mot de passe non valide !\n";
         }
         if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-            errorMessage += "No valid first name!\n";
+            errorMessage += "prénom non valide !\n";
         }
         if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
-            errorMessage += "No valid last name!\n";
+            errorMessage += "nom de famille non valide !\n";
         }
         if (emailField.getText() == null || emailField.getText().length() == 0) {
-            errorMessage += "No valid street!\n";
+            errorMessage += "email non valide !\n";
         }
         if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
-            errorMessage += "No valid birthday!\n";
+            errorMessage += "date de naissance non valide !\n";
         } else {
             if (!DateUtil.validDate(birthdayField.getText())) {
-                errorMessage += "No valid birthday. Use the format dd.mm.yyyy!\n";
+                errorMessage += "Utiliser le format dd.mm.yyyy pour la date !\n";
             }
         }
 

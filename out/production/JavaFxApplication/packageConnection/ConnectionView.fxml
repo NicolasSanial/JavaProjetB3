@@ -13,8 +13,8 @@
       <Label layoutX="70.0" layoutY="70.0" text="Connexion :" />
       <Label layoutX="70.0" layoutY="120.0" text="Login :" />
       <Label layoutX="70.0" layoutY="160.0" text="Password :" />
-      <PasswordField layoutX="160.0" layoutY="160.0" />
-      <TextField layoutX="160.0" layoutY="120.0" />
-      <Button layoutX="213.0" layoutY="202.0" mnemonicParsing="false" text="Valider" />
+      <PasswordField fx:id="passwordLabel" layoutX="160.0" layoutY="160.0" />
+      <TextField fx:id="loginLabel" layoutX="160.0" layoutY="120.0" />
+      <Button layoutX="213.0" layoutY="202.0" mnemonicParsing="false" onAction="#connectionAction" text="Valider" />
    </children>
 </AnchorPane>
