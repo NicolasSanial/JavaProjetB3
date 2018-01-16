@@ -54,7 +54,10 @@ public class AdminView extends Application {
         }
     }
 
-    public boolean showUserForm(User user) {
+    /**
+     * Show the view to manage user (add/modify/delete)
+     */
+    public static boolean showUserForm(User user) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();

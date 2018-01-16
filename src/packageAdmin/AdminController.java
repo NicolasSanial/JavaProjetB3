@@ -13,6 +13,7 @@ import packageMain.DateUtil;
 import packageModels.User;
 import packageModels.UserGestionList;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class AdminController {
@@ -121,36 +122,68 @@ public class AdminController {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
-
+    /**
+     * Handle the delete user action when button is clicked
+     * TODO: Il y a une exeption sur cette page lorsque la pop up d'erreur s'affiche, resoudre ano
+     */
     @FXML
     private void handleDeleteUser() {
 
         //Delete user on the front side
-        int selectedIndex = userTable.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0) {
-            userTable.getItems().remove(selectedIndex);
+        User selectedPerson = userTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            userTable.getItems().remove(selectedPerson);
         } else {
-            // Nothing selected
+            // pop in appear when nothing selected
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(AdminView.getAdminStage());
             alert.setTitle("pas de selection");
             alert.setHeaderText("Aucun utilisateur n'a été selectionné");
             alert.setContentText("selectionnez un utilisateur dans la liste");
 
-
             alert.showAndWait();
         }
 
         //Delete user on the listUser
-        UserGestionList.getInstance().removeUserList(selectedIndex+1);
+        List<User> listUser = UserGestionList.getInstance().getListUser();
+
+        for(int i=0;i < listUser.size();i++){
+            User u = listUser.get(i);
+            if(u != null) {
+                if (u.getFirstName() == selectedPerson.getFirstName() && u.getLastName() == selectedPerson.getLastName()) {
+                    UserGestionList.getInstance().removeUserListByObJ(selectedPerson);
+                }
+            }
+        }
     }
 
     @FXML
     private void handleCreateUser() {
-        User tempUser;
-        boolean okClicked = AdminView.showPersonEditDialog(tempPerson);
+        User tempUser = new User(1, "Kant","password" ,"nicolas","sanial","nico.san@smile.fr", LocalDate.of(1994, 2, 21));
+        boolean okClicked = AdminView.showUserForm(tempUser);
         if (okClicked) {
-            mainApp.getPersonData().add(tempUser);
+            UserGestionList.getInstance().getListUser().add(tempUser);
+        }
+    }
+
+    @FXML
+    private void handleEditPerson() {
+        User selectedPerson = userTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            boolean okClicked = AdminView.showUserForm(selectedPerson);
+            if (okClicked) {
+                showUserDetails(selectedPerson);
+            }
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(AdminView.getAdminStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a person in the table.");
+
+            alert.showAndWait();
         }
     }
 }

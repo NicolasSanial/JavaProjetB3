@@ -51,6 +51,11 @@ public class User {
     }
 
     /**
+     * Constructor to create empty users to create them
+     */
+    public User(){}
+
+    /**
      * Methods Get/Set of attributs (*Type*Property for ListView display)
      */
     public int getId() {
