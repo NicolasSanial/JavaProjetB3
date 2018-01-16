@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import packageAdmin.AdminView;
 import packageModels.UserGestionList;
+import packageProfil.ProfilView;
 
 public class ConnectionController {
 
@@ -45,6 +46,8 @@ public class ConnectionController {
         if(UserGestionList.getInstance().searchUserByLogin(login) == true){
             if(UserGestionList.getInstance().checkPassword(login, pwd) == true){
 
+                Stage stageProfil = new Stage();
+                new ProfilView().start(stageProfil);
                 Stage stage = (Stage) closeButton.getScene().getWindow();
                 stage.close();
 
