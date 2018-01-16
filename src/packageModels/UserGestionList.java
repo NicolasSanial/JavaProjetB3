@@ -48,7 +48,7 @@ public class UserGestionList {
         Iterator<User> it = listUser.iterator();
         while(it.hasNext()){
             User user = it.next();
-            if(user.getLogin() == login){
+            if(user.getLogin().equals(login)){
                 result = true;
             }
         }
@@ -64,7 +64,7 @@ public class UserGestionList {
         Iterator<User> it = listUser.iterator();
         while(it.hasNext()){
             User user = it.next();
-            if(user.getLogin() == login){
+            if(user.getLogin().equals(login)){
                 u = user;
             }
         }
@@ -96,7 +96,7 @@ public class UserGestionList {
         boolean result = false;
         User user = searchObjUserByLogin(login);
         if (searchUserByLogin(login) == true && user != null){
-            if(password == user.getPassword()){
+            if(user.getPassword().equals(password)){
                 result = true;
             }
         }
