@@ -6,6 +6,8 @@ import packageAdmin.AdminView;
 
 public class ConnectionController {
 
+    @FXML private javafx.scene.control.Button closeButton;
+
     /**
     * Action of the page administration button
     */
@@ -20,10 +22,10 @@ public class ConnectionController {
     /**
      * Action of the close button
      */
-    @FXML private javafx.scene.control.Button closeButton;
     @FXML
     private void closeButtonAction() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
+
 }

@@ -97,6 +97,9 @@ public class AdminController {
             emailLabel.setText(user.getEmail());
             birthdayLabel.setText(DateUtil.format(user.getBirthday()));
 
+            //Get info on field and modify object with
+            UserGestionList.getInstance().modifyUserList(user);
+
         } else {
 
             // User is null, remove all the text
@@ -163,6 +166,9 @@ public class AdminController {
         boolean okClicked = AdminView.showUserForm(tempUser);
         if (okClicked) {
             UserGestionList.getInstance().getListUser().add(tempUser);
+
+            //TODO : plus tard avec la co à la BD pour check les id
+            //UserGestionList.getInstance().addUserList(tempUser);
         }
     }
 
@@ -176,7 +182,7 @@ public class AdminController {
             }
 
         } else {
-            // Nothing selected.
+            // error pop in when nothing is selected
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(AdminView.getAdminStage());
             alert.setTitle("No Selection");

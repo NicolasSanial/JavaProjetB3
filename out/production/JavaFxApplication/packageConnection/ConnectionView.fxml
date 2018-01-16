@@ -15,5 +15,6 @@
       <Label layoutX="70.0" layoutY="160.0" text="Password :" />
       <PasswordField layoutX="160.0" layoutY="160.0" />
       <TextField layoutX="160.0" layoutY="120.0" />
+      <Button layoutX="213.0" layoutY="202.0" mnemonicParsing="false" text="Valider" />
    </children>
 </AnchorPane>
