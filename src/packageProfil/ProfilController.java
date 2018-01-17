@@ -2,6 +2,7 @@ package packageProfil;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import packageConnection.ConnectionView;
 
@@ -21,8 +22,16 @@ public class ProfilController {
     }
 
     @FXML
+    private void goPageImportPDFMenuAction() {
+        ProfilView.initImportPDF();
+        Stage stageConn = (Stage) closeButton.getScene().getWindow();
+        stageConn.close();
+    }
+
+    @FXML
     private void closeAction() {
         Stage stageConn = (Stage) closeButton.getScene().getWindow();
         stageConn.close();
     }
+
 }
