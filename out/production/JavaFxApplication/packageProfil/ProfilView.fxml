@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="packageProfil.ProfilController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="packageProfil.ProfilController">
    <children>
-      <Label layoutX="38.0" layoutY="36.0" text="Bonjour" />
-      <Label layoutX="97.0" layoutY="36.0" text="Label" />
+      <MenuBar layoutX="-3.0" prefHeight="29.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="PDF">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#importPdfPageAction" text="Import" />
+              <MenuItem mnemonicParsing="false" text="Export" />
+                  <MenuItem mnemonicParsing="false" text="Show public PDF" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Label layoutX="32.0" layoutY="64.0" text="Bonjour" />
+      <Label layoutX="96.0" layoutY="64.0" text="Label" />
       <Button fx:id="closeButton" layoutX="514.0" layoutY="353.0" mnemonicParsing="false" onAction="#closeAction" text="Quitter" />
       <Button layoutX="380.0" layoutY="353.0" mnemonicParsing="false" onAction="#goPageConnectionButtonAction" text="Se déconnecter" />
    </children>
