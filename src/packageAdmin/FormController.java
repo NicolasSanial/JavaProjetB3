@@ -8,10 +8,17 @@ import javafx.stage.Stage;
 import packageMain.DateUtil;
 import packageModels.User;
 
+/**
+ * View to edit data of an user
+ */
 public class FormController {
 
+    private Stage formStage;
+    private User user;
+    private boolean okClicked = false;
+
     /**
-     * View to edit data of an user
+     * Fields binded on the FXML
      */
     @FXML
     private TextField loginField;
@@ -25,10 +32,6 @@ public class FormController {
     private TextField emailField;
     @FXML
     private TextField birthdayField;
-
-    private Stage formStage;
-    private User user;
-    private boolean okClicked = false;
 
     /**
     * Initializes the controller class. This method is automatically called

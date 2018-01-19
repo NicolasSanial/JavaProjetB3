@@ -1,9 +1,7 @@
 package packageModels;
 
 import javafx.beans.property.*;
-import javax.xml.soap.Name;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Pdf {
 
@@ -13,20 +11,22 @@ public class Pdf {
     private boolean status;
 
     /**
-     * Constructeur Pdf
+     * Constructor Pdf
      */
-
-    public Pdf(int id, String name, ObjectProperty<LocalDate> uploadDate, boolean status) {
+    public Pdf(int id, String name, LocalDate uploadDate, boolean status) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.uploadDate = new SimpleObjectProperty(uploadDate);
         this.status = status;
     }
 
+    public Pdf(LocalDate uploadDate) {
+        this.uploadDate = new SimpleObjectProperty(uploadDate);
+    }
+
     /**
      * getters and setters for ID
      */
-
     public int getId() {
         return id.get();
     }
@@ -58,7 +58,6 @@ public class Pdf {
     /**
      * getters and setters for UploadDate
      */
-
     public LocalDate getUploadDate() {
         return uploadDate.get();
     }
@@ -74,7 +73,6 @@ public class Pdf {
     /**
      *  getters and setters for Status
      */
-
     public boolean isStatus() {
         return status;
     }
