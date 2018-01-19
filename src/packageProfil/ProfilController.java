@@ -46,7 +46,5 @@ public class ProfilController {
     @FXML
     private void importPdfPageAction() {
         ProfilView.initImportPDF();
-        Stage stagePro = (Stage) closeButton.getScene().getWindow();
-        stagePro.close();
     }
 }
