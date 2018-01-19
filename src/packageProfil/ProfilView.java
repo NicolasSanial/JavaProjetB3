@@ -8,7 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import packageAdmin.AdminView;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +15,8 @@ import java.io.IOException;
 public class ProfilView extends Application {
 
     private static Stage profilStage;
+
+    public static Stage getProfilStage() { return profilStage; }
 
     /**
      * Method who configure the initialisation of the connection view
@@ -45,30 +46,37 @@ public class ProfilView extends Application {
         }
     }
 
-    public static void initImportPDF() {
+    public static boolean initImportPDF() {
         try {
             // Load connection layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(AdminView.class.getResource("ImportPDF.fxml"));
+            loader.setLocation(ProfilView.class.getResource("ImportPDF.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
-            final FileChooser fileChooser = new FileChooser();
+            //final FileChooser fileChooser = new FileChooser();
 
-            configuringFileChooser(fileChooser);
+            //configuringFileChooser(fileChooser);
 
-            Stage formStage = new Stage();
-            formStage.setTitle("Modification d'un utilisateur");
-            formStage.initModality(Modality.WINDOW_MODAL);
-            formStage.initOwner(profilStage);
+            Stage ImportPdfStage = new Stage();
+            ImportPdfStage.setTitle("Import de PDF");
+            ImportPdfStage.initModality(Modality.WINDOW_MODAL);
+            ImportPdfStage.initOwner(profilStage);
             Scene scene = new Scene(page);
-            formStage.setScene(scene);
+            ImportPdfStage.setScene(scene);
 
-            // Part of code how display scene in stage en show stage
-            profilStage.setScene(scene);
-            fileChooser.showOpenDialog(profilStage);
-            profilStage.show();
+            ImportPdfController controller = loader.getController();
+            controller.setImportPdfStage(ImportPdfStage);
+            //controller.setPdf(pdf);
+
+            // Show the dialog and wait until the user closes it
+            ImportPdfStage.showAndWait();
+
+            return controller.isOkClicked();
+
+            //fileChooser.showOpenDialog(profilStage);
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

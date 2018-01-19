@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="packageProfil.ProfilController">
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="packageProfil.ImportPdfController">
    <children>
-      <Button layoutX="220.0" layoutY="250.0" mnemonicParsing="false" text="Quitter" />
-      <Button layoutX="118.0" layoutY="250.0" mnemonicParsing="false" text="Retour" />
-      <Button layoutX="149.0" layoutY="85.0" mnemonicParsing="false" text="Un seul fichier" />
-      <Button layoutX="141.0" layoutY="127.0" mnemonicParsing="false" text="Multiples fichiers" />
+      <Button layoutX="217.0" layoutY="263.0" mnemonicParsing="false" onAction="#handleOk" text="Ok" />
+      <Button layoutX="134.0" layoutY="263.0" mnemonicParsing="false" onAction="#handleCancel" text="Annuler" />
+      <Button layoutX="88.0" layoutY="31.0" mnemonicParsing="false" text="Un seul fichier" />
+      <Button layoutX="217.0" layoutY="31.0" mnemonicParsing="false" text="Multiples fichiers" />
    </children>
 </AnchorPane>
