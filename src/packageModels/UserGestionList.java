@@ -10,7 +10,7 @@ public class UserGestionList {
     /**
      * Constructor for the singleton
      */
-    private UserGestionList() {
+    public UserGestionList() {
         loadUserintoList();
     }
 
