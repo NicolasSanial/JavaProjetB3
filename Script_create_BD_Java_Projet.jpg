@@ -1,0 +1,50 @@
+/*------------------------------------------------------------
+ Script Ceation BD PostgreSQL. 
+------------------------------------------------------------*/
+
+
+
+/*------------------------------------------------------------
+ Table: w_user
+ ------------------------------------------------------------*/
+
+
+
+CREATE TABLE j_user(
+        
+id_user        int(40) AUTO_INCREMENT ,
+        
+login_user     Varchar (40) NOT NULL ,
+	
+password_user  Varchar (40) NOT NULL ,
+        
+firstname      Varchar (40) NOT NULL ,
+        
+lastname       Varchar (40) ,
+	
+email	       Varchar (40) ,
+        
+birthday_date  Date ,
+CONSTRAINT PRIMARY KEY(id_user)
+  
+
+);
+
+
+
+/*------------------------------------------------------------
+ Table: picture
+------------------------------------------------------------*/
+
+
+
+CREATE TABLE pdf(
+
+id_pdf SERIAL PRIMARY KEY ,
+
+path_pdf Varchar (40) NOT NULL ,
+
+status_public boolean ,
+id_user int, 
+FOREIGN KEY (id_user) REFERENCES j_user (id_user)
+);

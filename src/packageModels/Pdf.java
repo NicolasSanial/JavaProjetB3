@@ -8,7 +8,7 @@ public class Pdf {
     private IntegerProperty id;
     private StringProperty name;
     private ObjectProperty<LocalDate> uploadDate;
-    private boolean status;
+    private boolean status_public;
 
     /**
      * Constructor Pdf
@@ -17,7 +17,7 @@ public class Pdf {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.uploadDate = new SimpleObjectProperty(uploadDate);
-        this.status = status;
+        this.status_public = status;
     }
 
     public Pdf(LocalDate uploadDate) {
@@ -74,10 +74,10 @@ public class Pdf {
      *  getters and setters for Status
      */
     public boolean isStatus() {
-        return status;
+        return status_public;
     }
 
     public void setStatus(boolean status) {
-        this.status = status;
+        this.status_public = status;
     }
 }
