@@ -9,18 +9,20 @@ import java.sql.ResultSet;
 
 public class HandleConnectionDB {
 
+    private static Connection con = null;
+
+    private static HandleConnectionDB instance = new HandleConnectionDB();
+
     public HandleConnectionDB() {
 
     }
 
-    private static Connection con = null;
-
-    private static HandleConnectionDB instance = new HandleConnectionDB();
 
     public static HandleConnectionDB getInstance() {
 
         return HandleConnectionDB.instance;
     }
+
 
     public static Connection getConnection() {
 
@@ -35,6 +37,7 @@ public class HandleConnectionDB {
         return con;
     }
 
+
     public static Connection closeConnection() {
 
         if (con != null) {
@@ -45,6 +48,7 @@ public class HandleConnectionDB {
 
         return con;
     }
+
 
     public static ResultSet executeQuery(String query) {
 
@@ -62,6 +66,7 @@ public class HandleConnectionDB {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
+        // Execute query
         try {
             rs = stmt.executeQuery(query);
         } catch (SQLException ex) {
