@@ -11,6 +11,7 @@ public class UserGestionList {
      * Constructor for the singleton
      */
     public UserGestionList() {
+        super();
         loadUserintoList();
     }
 
