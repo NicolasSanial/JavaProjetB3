@@ -22,24 +22,6 @@ public class JDBC {
      * Constructor who use data connect to open the connection when we call the class JDBC
      */
     public JDBC() {
-
-        try {
-
-            Class.forName(DRIVER);
-            connection = DriverManager.getConnection(URL, LOGIN, PWD);
-
-        } catch (SQLException ex) {
-
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            System.exit(-1);
-
-        } catch (ClassNotFoundException e) {
-
-            e.printStackTrace();
-            System.exit(-1);
-        }
     }
 
     /**
@@ -58,6 +40,23 @@ public class JDBC {
      * @return connection
      */
     public static Connection getConnection() {
+        try {
+
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL, LOGIN, PWD);
+
+        } catch (SQLException ex) {
+
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            System.exit(-1);
+
+        } catch (ClassNotFoundException e) {
+
+            e.printStackTrace();
+            System.exit(-1);
+        }
 
         return connection;
     }

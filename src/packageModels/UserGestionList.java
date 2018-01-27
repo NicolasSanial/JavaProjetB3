@@ -125,7 +125,7 @@ public class UserGestionList {
      */
     public void modifyUser(User user){
         User u = getUserById(user.getId());
-        if(searchUserByLogin(user.getLogin()) == true && u != null){
+        if(u != null){
             u.setLogin(user.getLogin());
             u.setPassword(user.getPassword());
             u.setFirstName(user.getFirstName());
@@ -160,7 +160,7 @@ public class UserGestionList {
     /**
      *  Method how load test data in list when application start
      */
-    public void loadUserintoList(){
+    public void loadUserintoListLocal(){
 
         /* On va aller récup dans la BD plus tard, là on met des données en dur */
         listUser.add(new User(1, "Kant","password" ,"nicolas","sanial","nico.san@smile.fr", LocalDate.of(1994, 2, 21)));

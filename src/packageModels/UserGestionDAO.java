@@ -1,6 +1,5 @@
 package packageModels;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import packageMain.DateUtil;
 import packageMain.JDBC;
 import java.sql.Connection;
@@ -19,8 +18,8 @@ public class UserGestionDAO extends UserGestionList {
 
     //Attributs string containing the differents sql query we need
     private final static String CREATE_USER_SQL = "INSERT INTO j_user (login_user,password_user,firstname,lastname,email,birthday_date) VALUES (?,?,?,?,?,?)";
-    private final static String SELECT_ALL_USER_SQL = "SELECT "+"id_user"+",login_user,password_user,firstname,lastname,email,birthday_date FROM j_user";
-    private final static String UPDATE_USER_SQL = "UPDATE j_user SET login_user=?, password_user=?, firstname=?, lastname=?, email=?, birthday_date WHERE id_user=?";
+    private final static String SELECT_ALL_USER_SQL = "SELECT id_user,login_user,password_user,firstname,lastname,email,birthday_date FROM j_user";
+    private final static String UPDATE_USER_SQL = "UPDATE j_user SET login_user=?, password_user=?, firstname=?, lastname=?, email=?, birthday_date=? WHERE id_user=?";
 
 
     /**
@@ -32,6 +31,7 @@ public class UserGestionDAO extends UserGestionList {
 
     /**
      * Method how allow to get the userList instance
+     * @return instance of the UserGestionDAO class
      */
     public static UserGestionDAO getInstance(){
 
@@ -51,8 +51,9 @@ public class UserGestionDAO extends UserGestionList {
     public void addUser(User user){
 
         User u = getUserById(user.getId());
+        boolean loginExist = searchUserByLogin(user.getLogin());
 
-        if(searchUserByLogin(user.getLogin())== false && u == null){
+        if(loginExist == false && u == null){
 
             try {
                 con = JDBC.getInstance().getConnection();
@@ -90,9 +91,9 @@ public class UserGestionDAO extends UserGestionList {
     @Override
     public void modifyUser(User user){
 
-        User u = getUserById(user.getId());
+        User u = UserGestionList.getInstance().getUserById(user.getId());
 
-        if(searchUserByLogin(user.getLogin()) == true && u != null){
+        if(u != null){
 
             try {
                 con = JDBC.getInstance().getConnection();
@@ -126,7 +127,7 @@ public class UserGestionDAO extends UserGestionList {
     /**
      * Method called to charge DB table j_user into listUser
      */
-    @Override
+
     public void loadUserintoList(){
 
         con = JDBC.getInstance().getConnection();
@@ -148,8 +149,11 @@ public class UserGestionDAO extends UserGestionList {
                 user.setEmail(result.getString("email"));
                 user.setBirthday(DateUtil.parse(result.getString("birthday_date")));
 
-                UserGestionList.getInstance().getListUser().add(user);
+                User u = getUserById(user.getId());
+                if(searchUserByLogin(user.getLogin())== false && u == null){
 
+                    UserGestionList.getInstance().addUser(user);
+                }
             }
 
             con = JDBC.getInstance().closeConnection();

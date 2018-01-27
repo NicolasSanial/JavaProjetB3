@@ -48,7 +48,6 @@ public class AdminController {
     * Constructor (called in the view)
     */
     public AdminController(){
-
     }
 
     /**
@@ -77,6 +76,9 @@ public class AdminController {
 
         this.adminView = adminView;
 
+        //We load the user in the BD to the listUser
+        UserGestionDAO.getInstance().loadUserintoList();
+
         //We pull the UserList instance and convert to collections for listView exploitation
         List<User> listUser = UserGestionList.getInstance().getListUser();
         ObservableList<User> userData = FXCollections.observableArrayList(listUser);
@@ -99,9 +101,6 @@ public class AdminController {
             lastNameLabel.setText(user.getLastName());
             emailLabel.setText(user.getEmail());
             birthdayLabel.setText(DateUtil.format(user.getBirthday()));
-
-            //Get info on field and modify object with
-            UserGestionList.getInstance().modifyUser(user);
 
         } else {
 
@@ -173,6 +172,8 @@ public class AdminController {
         if (okClicked) {
 
             UserGestionDAO.getInstance().addUser(tempUser);
+
+            //We reload the user in the BD to the listUser
         }
     }
 
@@ -181,8 +182,11 @@ public class AdminController {
         User selectedPerson = userTable.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
             boolean okClicked = AdminView.showUserForm(selectedPerson);
+
             if (okClicked) {
                 showUserDetails(selectedPerson);
+                UserGestionDAO.getInstance().modifyUser(selectedPerson);
+
             }
 
         } else {

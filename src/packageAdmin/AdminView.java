@@ -7,6 +7,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import packageModels.User;
+import packageModels.UserGestionDAO;
+
 import java.io.IOException;
 
 public class AdminView extends Application {
