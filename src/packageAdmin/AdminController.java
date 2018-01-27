@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import packageConnection.ConnectionView;
 import packageMain.DateUtil;
 import packageModels.User;
+import packageModels.UserGestionDAO;
 import packageModels.UserGestionList;
 
 import java.time.LocalDate;
@@ -46,7 +47,9 @@ public class AdminController {
     /**
     * Constructor (called in the view)
     */
-    public AdminController(){}
+    public AdminController(){
+
+    }
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -98,7 +101,7 @@ public class AdminController {
             birthdayLabel.setText(DateUtil.format(user.getBirthday()));
 
             //Get info on field and modify object with
-            UserGestionList.getInstance().modifyUserList(user);
+            UserGestionList.getInstance().modifyUser(user);
 
         } else {
 
@@ -161,14 +164,15 @@ public class AdminController {
     }
 
     @FXML
-    private void handleCreateUser() {
-        User tempUser = new User(1, "Kant","password" ,"nicolas","sanial","nico.san@smile.fr", LocalDate.of(1994, 2, 21));
-        boolean okClicked = AdminView.showUserForm(tempUser);
-        if (okClicked) {
-            UserGestionList.getInstance().getListUser().add(tempUser);
+        private void handleCreateUser() {
 
-            //TODO : plus tard avec la co à la BD pour check les id
-            //UserGestionList.getInstance().addUserList(tempUser);
+        User tempUser = new User(1,"login","password","firstName","lastName","email", LocalDate.of(0001, 1, 01));
+
+        boolean okClicked = AdminView.showUserForm(tempUser);
+
+        if (okClicked) {
+
+            UserGestionDAO.getInstance().addUser(tempUser);
         }
     }
 

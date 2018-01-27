@@ -93,7 +93,7 @@ public class PdfGestionList {
      * @param pdf
      * TODO : Faire hériter addPdfList() de PdfGestionDAO avec un super.return ...?
      */
-    public void addPdfList (Pdf pdf){
+    public void addPdf (Pdf pdf){
         Pdf p = getPdfById(pdf.getId());
         if(searchPdfByName(pdf.getName())== false && p == null){
             listPdf.add(pdf);
@@ -105,7 +105,7 @@ public class PdfGestionList {
      * @param pdf
      * TODO : Faire hériter modifyPdfList() de PdfGestionDAO avec un super.return ...?
      */
-    public void modifyPdfList(Pdf pdf){
+    public void modifyPdf(Pdf pdf){
         Pdf p = getPdfById(pdf.getId());
         if(searchPdfByName(pdf.getName()) == true && p != null){
             p.setName(pdf.getName());
@@ -117,7 +117,7 @@ public class PdfGestionList {
      * Method to call to remove pdf by id (call removePdfList(Pdf) with an pdf parameter
      * @param id
      */
-    public void removePdfListById(int id){
+    public void removePdfById(int id){
         Pdf p = getPdfById(id);
         if (p != null){
             listPdf.remove(p);
@@ -129,7 +129,7 @@ public class PdfGestionList {
      * @param pdf
      * TODO : Faire hériter modifyPdfList() de PdfGestionDAO avec un super.return ...?
      */
-    public void removePdfListByObJ(Pdf pdf){
+    public void removePdfByObJ(Pdf pdf){
         if(searchPdfByName(pdf.getName()) == true && pdf != null) {
             listPdf.remove(pdf);
         }

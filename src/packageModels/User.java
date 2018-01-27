@@ -17,9 +17,16 @@ public class User {
     private ObjectProperty<LocalDate> birthday;
 
     /**
+     * Constructor to create empty users to create them
+     */
+    public User(){ super(); }
+
+    /**
     * Constructor with all fields (test data loading)
     */
     public User(int id, String login, String password, String firstName, String lastName, String email, LocalDate birthday) {
+
+        super();
         this.id = new SimpleIntegerProperty(id);
         this.login = new SimpleStringProperty(login);
         this.password = new SimpleStringProperty(password);
@@ -27,33 +34,35 @@ public class User {
         this.lastName = new SimpleStringProperty(lastName);
         this.email = new SimpleStringProperty(email);
         this.birthday = new SimpleObjectProperty(birthday);
+
     }
 
     /**
      * Constructor with all fields without id (for the auto increment of id in BD)
      */
-    public User(String login, String password, String firstName, String lastName, String email, Date birthday) {
+    public User(String login, String password, String firstName, String lastName, String email, LocalDate birthday) {
+
+        super();
         this.login = new SimpleStringProperty(login);
         this.password = new SimpleStringProperty(password);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.email = new SimpleStringProperty(email);
         this.birthday = new SimpleObjectProperty(birthday);
+
     }
 
     /**
      * Without firstName, lastName, birthday
      */
     public User(String login, String password, String email) {
+
+        super();
         this.login = new SimpleStringProperty(login);
         this.password = new SimpleStringProperty(password);
         this.email = new SimpleStringProperty(email);
-    }
 
-    /**
-     * Constructor to create empty users to create them
-     */
-    public User(){}
+    }
 
     /**
      * Methods Get/Set of attributs (*Type*Property for ListView display)

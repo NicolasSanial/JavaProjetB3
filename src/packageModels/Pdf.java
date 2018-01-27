@@ -5,15 +5,25 @@ import java.time.LocalDate;
 
 public class Pdf {
 
+    /**
+     * Attributs of a Pdf object
+     */
     private IntegerProperty id;
     private StringProperty name;
     private ObjectProperty<LocalDate> uploadDate;
     private boolean status_public;
 
     /**
+     * Allow creating empty Pdf objects
+     */
+    public Pdf(){ super(); }
+
+    /**
      * Constructor Pdf
      */
     public Pdf(int id, String name, LocalDate uploadDate, boolean status) {
+
+        super();
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.uploadDate = new SimpleObjectProperty(uploadDate);
