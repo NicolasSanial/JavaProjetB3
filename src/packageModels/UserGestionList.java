@@ -139,7 +139,7 @@ public class UserGestionList {
      * Method to call to remove user by id (call removeUserList(User) with an user parameter
      * @param id
      */
-    public void removeUserListById(int id){
+    public void removeUserById(int id){
         User u = getUserById(id);
         if (u != null){
             listUser.remove(u);
@@ -151,7 +151,7 @@ public class UserGestionList {
      * @param user
      * TODO : Faire hériter modifyUserList() de UserGestionDAO avec un super.return ...?
      */
-    public void removeUserListByObJ(User user){
+    public void removeUserByObJ(User user){
         if(searchUserByLogin(user.getLogin()) == true && user != null) {
             listUser.remove(user);
         }

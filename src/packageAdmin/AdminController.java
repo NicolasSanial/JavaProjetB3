@@ -156,7 +156,7 @@ public class AdminController {
             User u = listUser.get(i);
             if(u != null) {
                 if (u.getFirstName() == selectedPerson.getFirstName() && u.getLastName() == selectedPerson.getLastName()) {
-                    UserGestionList.getInstance().removeUserListByObJ(selectedPerson);
+                    UserGestionDAO.getInstance().removeUserByObJ(selectedPerson);
                 }
             }
         }

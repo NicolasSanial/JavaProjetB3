@@ -1,5 +1,9 @@
 package packageMain;
 
+import javax.activation.DataSource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,7 +13,6 @@ import java.sql.ResultSet;
 
 public class JDBC {
 
-    private static Connection connection = null;
     private static JDBC instance;
 
     //Attribut to connect your database
@@ -22,6 +25,7 @@ public class JDBC {
      * Constructor who use data connect to open the connection when we call the class JDBC
      */
     public JDBC() {
+
     }
 
     /**
@@ -40,6 +44,9 @@ public class JDBC {
      * @return connection
      */
     public static Connection getConnection() {
+
+        Connection connection = null;
+
         try {
 
             Class.forName(DRIVER);
@@ -65,7 +72,7 @@ public class JDBC {
      * Method called to close the connection after opened it
      * @return connection
      */
-    public static Connection closeConnection() {
+    public static Connection closeConnection(Connection connection) {
 
         if (connection != null) {
 
@@ -80,6 +87,7 @@ public class JDBC {
     }
 
     //Je pense qu'elle sera innutile car on a besoin pour les preparedStatement de bind des parametres dans la requete et la method ne nous le permet pas
+    /*
     public static ResultSet executeQuery(String query) {
 
         Statement stmt = null;
@@ -116,4 +124,5 @@ public class JDBC {
 
         return rs;
     }
+    */
 }

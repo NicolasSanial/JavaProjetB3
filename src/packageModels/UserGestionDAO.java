@@ -20,6 +20,8 @@ public class UserGestionDAO extends UserGestionList {
     private final static String CREATE_USER_SQL = "INSERT INTO j_user (login_user,password_user,firstname,lastname,email,birthday_date) VALUES (?,?,?,?,?,?)";
     private final static String SELECT_ALL_USER_SQL = "SELECT id_user,login_user,password_user,firstname,lastname,email,birthday_date FROM j_user";
     private final static String UPDATE_USER_SQL = "UPDATE j_user SET login_user=?, password_user=?, firstname=?, lastname=?, email=?, birthday_date=? WHERE id_user=?";
+    private final static String DELETE_USER_SQL = "DELETE FROM j_user WHERE id_user=?";
+
 
 
     /**
@@ -50,15 +52,14 @@ public class UserGestionDAO extends UserGestionList {
     @Override
     public void addUser(User user){
 
-        User u = getUserById(user.getId());
-        boolean loginExist = searchUserByLogin(user.getLogin());
-
-        if(loginExist == false && u == null){
+        if(UserGestionList.getInstance().searchUserByLogin(user.getLogin()) == false && getUserById(user.getId()) == null){
 
             try {
+
                 con = JDBC.getInstance().getConnection();
 
                 ps = con.prepareStatement(CREATE_USER_SQL);
+
                 ps.setString(1, user.getLogin());
                 ps.setString(2, user.getPassword());
                 ps.setString(3, user.getFirstName());
@@ -70,7 +71,9 @@ public class UserGestionDAO extends UserGestionList {
 
                 ps.execute();
 
-                con = JDBC.getInstance().closeConnection();
+                ps.close();
+
+                super.addUser(user);
 
             }catch (SQLException ex){
 
@@ -79,8 +82,11 @@ public class UserGestionDAO extends UserGestionList {
                 System.out.println("VendorError: " + ex.getErrorCode());
                 System.exit(-1);
 
+            } finally {
+                if ( con != null ){
+                    JDBC.getInstance().closeConnection(con);
+                }
             }
-            super.addUser(user);
         }
     }
 
@@ -91,13 +97,14 @@ public class UserGestionDAO extends UserGestionList {
     @Override
     public void modifyUser(User user){
 
-        User u = UserGestionList.getInstance().getUserById(user.getId());
-
-        if(u != null){
+        if(UserGestionList.getInstance().getUserById(user.getId()) != null){
 
             try {
+
                 con = JDBC.getInstance().getConnection();
+
                 ps = con.prepareStatement(UPDATE_USER_SQL);
+
                 ps.setString(1, user.getLogin());
                 ps.setString(2, user.getPassword());
                 ps.setString(3, user.getFirstName());
@@ -108,8 +115,9 @@ public class UserGestionDAO extends UserGestionList {
 
                 ps.execute();
 
-                con = JDBC.getInstance().closeConnection();
+                ps.close();
 
+                super.modifyUser(user);
 
             }catch (SQLException ex){
 
@@ -118,28 +126,63 @@ public class UserGestionDAO extends UserGestionList {
                 System.out.println("VendorError: " + ex.getErrorCode());
                 System.exit(-1);
 
+            } finally {
+                if ( con != null ){
+                    JDBC.getInstance().closeConnection(con);
+                }
             }
+        }
+    }
 
-            super.modifyUser(user);
+    @Override
+    public void  removeUserByObJ(User user){
+
+        if(UserGestionList.getInstance().searchUserByLogin(user.getLogin()) == true && UserGestionList.getInstance().getUserById(user.getId()) != null){
+
+            try {
+
+                con = JDBC.getInstance().getConnection();
+
+                ps = con.prepareStatement(DELETE_USER_SQL);
+                ps.setInt(1, user.getId());
+
+                ps.execute();
+
+                ps.close();
+
+                super.removeUserByObJ(user);
+
+            }catch(SQLException ex){
+
+                System.out.println("SQLException: " + ex.getMessage());
+                System.out.println("SQLState: " + ex.getSQLState());
+                System.out.println("VendorError: " + ex.getErrorCode());
+                System.exit(-1);
+
+            } finally {
+                if ( con != null ){
+                    JDBC.getInstance().closeConnection(con);
+                }
+            }
         }
     }
 
     /**
      * Method called to charge DB table j_user into listUser
      */
-
     public void loadUserintoList(){
-
-        con = JDBC.getInstance().getConnection();
 
         try {
 
+            con = JDBC.getInstance().getConnection();
+
             ps = con.prepareStatement(SELECT_ALL_USER_SQL);
+
             ResultSet result = ps.executeQuery();
 
-            while(result.next()){
+            while (result.next()) {
 
-                User user = new User(1, "Kant","password" ,"nicolas","sanial","nico.san@smile.fr", LocalDate.of(1994, 2, 21));
+                User user = new User(1, "Kant", "password", "nicolas", "sanial", "nico.san@smile.fr", LocalDate.of(1994, 2, 21));
 
                 user.setId(result.getInt("id_user"));
                 user.setLogin(result.getString("login_user"));
@@ -149,14 +192,14 @@ public class UserGestionDAO extends UserGestionList {
                 user.setEmail(result.getString("email"));
                 user.setBirthday(DateUtil.parse(result.getString("birthday_date")));
 
-                User u = getUserById(user.getId());
-                if(searchUserByLogin(user.getLogin())== false && u == null){
+                User u = UserGestionList.getInstance().getUserById(user.getId());
+                if (UserGestionList.getInstance().searchUserByLogin(user.getLogin()) == false && u == null) {
 
                     UserGestionList.getInstance().addUser(user);
                 }
             }
 
-            con = JDBC.getInstance().closeConnection();
+            ps.close();
 
         }catch (SQLException ex){
 
@@ -165,6 +208,10 @@ public class UserGestionDAO extends UserGestionList {
             System.out.println("VendorError: " + ex.getErrorCode());
             System.exit(-1);
 
+        } finally {
+            if ( con != null ){
+                JDBC.getInstance().closeConnection(con);
+            }
         }
     }
 }
