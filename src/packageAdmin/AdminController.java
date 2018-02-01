@@ -76,9 +76,7 @@ public class AdminController {
 
         this.adminView = adminView;
 
-        //We load the user in the BD to the listUser
         UserGestionDAO.getInstance().loadUserintoList();
-
         //We pull the UserList instance and convert to collections for listView exploitation
         List<User> listUser = UserGestionList.getInstance().getListUser();
         ObservableList<User> userData = FXCollections.observableArrayList(listUser);
@@ -163,7 +161,7 @@ public class AdminController {
     }
 
     @FXML
-        private void handleCreateUser() {
+    private void handleCreateUser() {
 
         User tempUser = new User(1,"login","password","firstName","lastName","email", LocalDate.of(0001, 1, 01));
 

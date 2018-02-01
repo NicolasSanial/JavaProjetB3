@@ -29,7 +29,7 @@ public class UserGestionList {
     }
 
     // Init of the only one user list in the appli
-    private List<User> listUser = new ArrayList<User>();
+    private static List<User> listUser = new ArrayList<User>();
 
     /**
      * Return the list
@@ -109,11 +109,10 @@ public class UserGestionList {
     /**
      * Method how add user into list
      * @param user
-     * TODO : Faire hériter addUserList() de UserGestionDAO avec un super.return ...?
      */
     public void addUser(User user){
         User u = getUserById(user.getId());
-        if(searchUserByLogin(user.getLogin())== false && u == null){
+        if(searchUserByLogin(user.getLogin()) == false && u == null){
             listUser.add(user);
         }
     }
@@ -121,7 +120,6 @@ public class UserGestionList {
     /**
      * Method how add user into list
      * @param user
-     * TODO : Faire hériter modifyUserList() de UserGestionDAO avec un super.return ...?
      */
     public void modifyUser(User user){
         User u = getUserById(user.getId());
@@ -149,7 +147,6 @@ public class UserGestionList {
     /**
      * Method how remove user from list
      * @param user
-     * TODO : Faire hériter modifyUserList() de UserGestionDAO avec un super.return ...?
      */
     public void removeUserByObJ(User user){
         if(searchUserByLogin(user.getLogin()) == true && user != null) {

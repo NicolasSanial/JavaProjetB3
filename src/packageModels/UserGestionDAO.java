@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class UserGestionDAO extends UserGestionList {
+public class UserGestionDAO {
 
     //Attributs to controll the connection into the methods
     Connection con = null;
@@ -17,8 +17,9 @@ public class UserGestionDAO extends UserGestionList {
     private static UserGestionDAO instance = null;
 
     //Attributs string containing the differents sql query we need
-    private final static String CREATE_USER_SQL = "INSERT INTO j_user (login_user,password_user,firstname,lastname,email,birthday_date) VALUES (?,?,?,?,?,?)";
     private final static String SELECT_ALL_USER_SQL = "SELECT id_user,login_user,password_user,firstname,lastname,email,birthday_date FROM j_user";
+    private final static String SELECT_USER_BY_NAME_SQL = "SELECT id_user,login_user,password_user,firstname,lastname,email,birthday_date FROM j_user WHERE firstname=? and lastname=?";
+    private final static String CREATE_USER_SQL = "INSERT INTO j_user (login_user,password_user,firstname,lastname,email,birthday_date) VALUES (?,?,?,?,?,?)";
     private final static String UPDATE_USER_SQL = "UPDATE j_user SET login_user=?, password_user=?, firstname=?, lastname=?, email=?, birthday_date=? WHERE id_user=?";
     private final static String DELETE_USER_SQL = "DELETE FROM j_user WHERE id_user=?";
 
@@ -49,10 +50,9 @@ public class UserGestionDAO extends UserGestionList {
      * Method how execute SQL query creating user and send on BD, call addUser of the herited class UserGestList
      * @param user
      */
-    @Override
     public void addUser(User user){
 
-        if(UserGestionList.getInstance().searchUserByLogin(user.getLogin()) == false && getUserById(user.getId()) == null){
+        if(UserGestionList.getInstance().searchUserByLogin(user.getLogin()) == false){
 
             try {
 
@@ -73,8 +73,6 @@ public class UserGestionDAO extends UserGestionList {
 
                 ps.close();
 
-                super.addUser(user);
-
             }catch (SQLException ex){
 
                 System.out.println("SQLException: " + ex.getMessage());
@@ -85,7 +83,54 @@ public class UserGestionDAO extends UserGestionList {
             } finally {
                 if ( con != null ){
                     JDBC.getInstance().closeConnection(con);
+
+                    addUserIntoListAfterCreate(user);
                 }
+            }
+        }
+    }
+
+    /**
+     * Utilitary method for addUser call at last. Allow to insert the last created user into the list
+     * @param user
+     */
+    public void addUserIntoListAfterCreate(User user){
+
+        User uToPutInList = new User(1, "Kant", "password", "nicolas", "sanial", "nico.san@smile.fr", LocalDate.of(1994, 2, 21));
+
+        try{
+
+            con = JDBC.getInstance().getConnection();
+
+            ps = con.prepareStatement(SELECT_USER_BY_NAME_SQL);
+
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+
+            ResultSet result = ps.executeQuery();
+
+            result.next();
+
+            uToPutInList.setId(result.getInt("id_user"));
+            uToPutInList.setLogin(result.getString("login_user"));
+            uToPutInList.setPassword(result.getString("password_user"));
+            uToPutInList.setFirstName(result.getString("firstname"));
+            uToPutInList.setLastName(result.getString("lastname"));
+            uToPutInList.setEmail(result.getString("email"));
+            uToPutInList.setBirthday(DateUtil.parse(result.getString("birthday_date")));
+
+            UserGestionList.getInstance().addUser(uToPutInList);
+
+        }catch(SQLException ex){
+
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            System.exit(-1);
+
+        }finally{
+            if ( con != null ){
+                JDBC.getInstance().closeConnection(con);
             }
         }
     }
@@ -94,7 +139,6 @@ public class UserGestionDAO extends UserGestionList {
      * Method how execute SQL query modifying user and send on BD, call addUser of the herited class UserGestList
      * @param user : user we want to modify
      */
-    @Override
     public void modifyUser(User user){
 
         if(UserGestionList.getInstance().getUserById(user.getId()) != null){
@@ -117,7 +161,7 @@ public class UserGestionDAO extends UserGestionList {
 
                 ps.close();
 
-                super.modifyUser(user);
+                UserGestionList.getInstance().modifyUser(user);
 
             }catch (SQLException ex){
 
@@ -134,7 +178,6 @@ public class UserGestionDAO extends UserGestionList {
         }
     }
 
-    @Override
     public void  removeUserByObJ(User user){
 
         if(UserGestionList.getInstance().searchUserByLogin(user.getLogin()) == true && UserGestionList.getInstance().getUserById(user.getId()) != null){
@@ -150,7 +193,7 @@ public class UserGestionDAO extends UserGestionList {
 
                 ps.close();
 
-                super.removeUserByObJ(user);
+                UserGestionList.getInstance().removeUserByObJ(user);
 
             }catch(SQLException ex){
 

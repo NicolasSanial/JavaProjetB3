@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import packageMain.DateUtil;
 import packageModels.User;
+import packageModels.UserGestionDAO;
 
 /**
  * View to edit data of an user
@@ -88,7 +89,12 @@ public class FormController {
             user.setEmail(emailField.getText());
             user.setBirthday(DateUtil.parse(birthdayField.getText()));
 
+            UserGestionDAO.getInstance().loadUserintoList();
+
+            AdminView.getAdminStage();
+
             okClicked = true;
+
             formStage.close();
         }
     }
