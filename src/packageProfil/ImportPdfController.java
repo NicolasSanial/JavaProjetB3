@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import packageModels.Pdf;
-
+import packageModels.PdfGestionList;
 import java.io.File;
 import java.time.LocalDate;
 
@@ -53,36 +53,32 @@ public class ImportPdfController {
 
     @FXML
     private void handleImportOne() {
-        // TODO : faire un if qui appel la methode de vérification isInputValid
 
+        final FileChooser fileChooser = new FileChooser();
+        configuringFileChooser(fileChooser);
 
-            LocalDate date = LocalDate.now();
-            Pdf newPdf = new Pdf(date);
+        File file = fileChooser.showOpenDialog(importPdfStage);
 
-            final FileChooser fileChooser = new FileChooser();
-            configuringFileChooser(fileChooser);
-            fileChooser.setTitle("Ouvrir le pdf");
-            File file = fileChooser.showOpenDialog(importPdfStage);
+        if (file != null) {
 
-            if (file != null) {
                 namePdfField.setText(file.getName());
-                newPdf.setName(namePdfField.getText());
-                okClicked = true;
-                importPdfStage.close();
-            } else {
-                // Show the error message
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(importPdfStage);
-                alert.setTitle("Aucun fichier reconnu");
-                alert.setHeaderText("Ce fichier n'est pas un PDF");
-                alert.setContentText("Veuillez choisir un autre fichier");
-                alert.showAndWait();
-            }
+
+            handleOk(file);
+
+        } else {
+            // Show the error message
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(importPdfStage);
+            alert.setTitle("Aucun fichier reconnu");
+            alert.setHeaderText("Ce fichier n'est pas un PDF");
+            alert.setContentText("Veuillez choisir un autre fichier");
+            alert.showAndWait();
+        }
     }
 
     private static void configuringFileChooser(FileChooser fileChooser) {
         // Set title for FileChooser
-        fileChooser.setTitle("Select Some Files");
+        fileChooser.setTitle("Ouvrir le PDF");
 
         // Set Initial Directory
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
@@ -94,20 +90,22 @@ public class ImportPdfController {
      * Called when the user clicks ok.
      */
     @FXML
-    private void handleOk() {
-        if (isInputValid()) {
-            /*
-            user.setLogin(loginField.getText());
-            user.setPassword(passwordField.getText());
-            user.setFirstName(firstNameField.getText());
-            user.setLastName(lastNameField.getText());
-            user.setEmail(emailField.getText());
-            user.setBirthday(DateUtil.parse(birthdayField.getText()));
+    private void handleOk(File file) {
 
-            okClicked = true;
-            */
-            importPdfStage.close();
-        }
+        //TODO : Faire un if avec isInputValid pour check que tout les champs sont biens rempli
+
+        LocalDate date = LocalDate.now();
+        Pdf newPdf = new Pdf(date);
+
+        //newPdf.setName(namePdfField.getText());
+        newPdf.setFile(file);
+
+        //PdfGestionList.getInstance().addPdf(newPdf);
+
+        okClicked = true;
+
+        importPdfStage.close();
+
     }
 
     /**

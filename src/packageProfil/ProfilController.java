@@ -33,6 +33,7 @@ public class ProfilController {
     private void goPageConnectionButtonAction() {
         Stage stageConnect = new Stage();
         new ConnectionView().start(stageConnect);
+
         Stage stageConn = (Stage) closeButton.getScene().getWindow();
         stageConn.close();
     }

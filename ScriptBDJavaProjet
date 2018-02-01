@@ -14,7 +14,7 @@ password_user  Varchar (40) NOT NULL ,
 firstname      Varchar (40) NOT NULL ,
 lastname       Varchar (40) ,
 email	       Varchar (40) ,
-birthday_date  Date ,
+birthday_date  Varchar (40) ,
 CONSTRAINT PRIMARY KEY(id_user)
 );
 
@@ -27,6 +27,7 @@ CONSTRAINT PRIMARY KEY(id_user)
 CREATE TABLE pdf(
 id_pdf SERIAL PRIMARY KEY ,
 path_pdf Varchar (40) NOT NULL ,
+upload_date Varchar (40) ,
 status_public boolean ,
 id_user int, 
 FOREIGN KEY (id_user) REFERENCES j_user (id_user)

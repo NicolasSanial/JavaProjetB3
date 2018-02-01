@@ -11,9 +11,7 @@ public class PdfGestionList {
     /**
      * Constructor for the singleton
      */
-    public PdfGestionList() {
-        loadPdfintoList();
-    }
+    public PdfGestionList() { }
 
     // initialisation du singleton
     private static PdfGestionList instance = null;
@@ -95,9 +93,9 @@ public class PdfGestionList {
      */
     public void addPdf (Pdf pdf){
         Pdf p = getPdfById(pdf.getId());
-        if(searchPdfByName(pdf.getName())== false && p == null){
+        //if(searchPdfByName(pdf.getName())== false && p == null){
             listPdf.add(pdf);
-        }
+        //}
     }
 
     /**
@@ -109,7 +107,7 @@ public class PdfGestionList {
         Pdf p = getPdfById(pdf.getId());
         if(searchPdfByName(pdf.getName()) == true && p != null){
             p.setName(pdf.getName());
-            p.setStatus(pdf.isStatus());
+            p.setStatus(pdf.getStatus());
         }
     }
 
@@ -138,11 +136,14 @@ public class PdfGestionList {
     /**
      *  Method how load test data in list when application start
      */
-    public void loadPdfintoList(/* User user */){
-
+    /*
+    public void loadPdfintoList(){
+*/
         /* On va aller récup dans la BD plus tard, là on met des données en dur */
+        /*
         listPdf.add(new Pdf(1, "pdf1",  LocalDate.of(1994, 2, 21), true));
         listPdf.add(new Pdf(2, "pdf2",  LocalDate.of(1995, 2, 21), true));
         listPdf.add(new Pdf(3, "pdf3",  LocalDate.of(1996, 2, 21), true));
     }
+    */
 }

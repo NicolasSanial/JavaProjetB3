@@ -65,6 +65,7 @@ public class ProfilView extends Application {
             ImportPdfStage.showAndWait();
 
             return controller.isOkClicked();
+
         } catch (IOException e) {
             e.printStackTrace();
             return false;

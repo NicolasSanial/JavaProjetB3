@@ -1,6 +1,8 @@
 package packageModels;
 
 import javafx.beans.property.*;
+
+import java.io.File;
 import java.time.LocalDate;
 
 public class Pdf {
@@ -11,6 +13,7 @@ public class Pdf {
     private IntegerProperty id;
     private StringProperty name;
     private ObjectProperty<LocalDate> uploadDate;
+    private File file;
     private boolean status_public;
 
     /**
@@ -21,15 +24,20 @@ public class Pdf {
     /**
      * Constructor Pdf
      */
-    public Pdf(int id, String name, LocalDate uploadDate, boolean status) {
+    public Pdf(int id, String name, LocalDate uploadDate, File file, boolean status) {
 
         super();
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.uploadDate = new SimpleObjectProperty(uploadDate);
+        this.file = file;
         this.status_public = status;
     }
 
+    /**
+     * Constructor to cast new Pdf files with the current date
+     * @param uploadDate
+     */
     public Pdf(LocalDate uploadDate) {
         this.uploadDate = new SimpleObjectProperty(uploadDate);
     }
@@ -64,7 +72,6 @@ public class Pdf {
         this.name.set(name);
     }
 
-
     /**
      * getters and setters for UploadDate
      */
@@ -81,9 +88,20 @@ public class Pdf {
     }
 
     /**
+     *  getters and setters for the file
+     */
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    /**
      *  getters and setters for Status
      */
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status_public;
     }
 
