@@ -48,4 +48,9 @@ public class ProfilController {
     private void importPdfPageAction() {
         ProfilView.initImportPDF();
     }
+
+    @FXML
+    private void splitPageAction() {
+        ProfilView.initSplitPDF();
+    }
 }

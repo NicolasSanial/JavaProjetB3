@@ -16,8 +16,9 @@
         <menus>
           <Menu mnemonicParsing="false" text="PDF">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#importPdfPageAction" text="Import" />
-              <MenuItem mnemonicParsing="false" text="Export" />
+                  <MenuItem mnemonicParsing="false" onAction="#importPdfPageAction" text="Import PDF" />
+              <MenuItem mnemonicParsing="false" text="Export PDF" />
+                  <MenuItem mnemonicParsing="false" onAction="#splitPageAction" text="Split PDF" />
                   <MenuItem mnemonicParsing="false" text="Show public PDF" />
             </items>
           </Menu>

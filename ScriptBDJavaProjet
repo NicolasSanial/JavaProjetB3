@@ -26,9 +26,10 @@ CONSTRAINT PRIMARY KEY(id_user)
 
 CREATE TABLE pdf(
 id_pdf SERIAL PRIMARY KEY ,
-path_pdf Varchar (40) NOT NULL ,
+name_pdf Varchar (40) ,
+path_pdf Varchar (40) ,
 upload_date Varchar (40) ,
 status_public boolean ,
-id_user int, 
+id_user int ,
 FOREIGN KEY (id_user) REFERENCES j_user (id_user)
 );

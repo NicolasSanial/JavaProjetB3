@@ -23,6 +23,7 @@ public class ImportPdfController {
     private Stage importPdfStage;
     private Desktop desktop = Desktop.getDesktop();
     private boolean okClicked = false;
+    private Pdf pdf;
 
     /**
      * Fields binded on the FXML
@@ -77,12 +78,11 @@ public class ImportPdfController {
 
             namePdfField.setText(file.getName());
             dateUploadPdfField.setText(format(date));
-            namePdfField.setEditable(false);
             dateUploadPdfField.setEditable(false);
 
             Pdf newPdf = new Pdf(1, namePdfField.getText(), date, file, false);
 
-            PdfGestionList.getInstance().addPdf(newPdf);
+            pdf = newPdf;
 
         } else {
             // Show the error message
@@ -121,6 +121,9 @@ public class ImportPdfController {
      */
     @FXML
     private void handleOk() {
+
+        pdf.setName(namePdfField.getText());
+        PdfGestionList.getInstance().addPdf(pdf);
 
         okClicked = true;
         importPdfStage.close();
