@@ -16,10 +16,11 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static packageMain.DateUtil.format;
+
 public class ImportPdfController {
 
     private Stage importPdfStage;
-    private Pdf pdf;
     private Desktop desktop = Desktop.getDesktop();
     private boolean okClicked = false;
 
@@ -28,6 +29,9 @@ public class ImportPdfController {
      */
     @FXML
     private TextField namePdfField;
+
+    @FXML
+    private TextField dateUploadPdfField;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -69,13 +73,14 @@ public class ImportPdfController {
         if (file != null) {
             //TODO : Faire un if avec isInputValid pour check que tout les champs sont biens rempli
 
-            namePdfField.setText(file.getName());
-
             LocalDate date = LocalDate.now();
 
-            Pdf newPdf = new Pdf(1, "name", date, file, false);
+            namePdfField.setText(file.getName());
+            dateUploadPdfField.setText(format(date));
+            namePdfField.setEditable(false);
+            dateUploadPdfField.setEditable(false);
 
-            newPdf.setName(namePdfField.getText());
+            Pdf newPdf = new Pdf(1, namePdfField.getText(), date, file, false);
 
             PdfGestionList.getInstance().addPdf(newPdf);
 
