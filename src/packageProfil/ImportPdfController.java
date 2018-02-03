@@ -5,15 +5,22 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import packageModels.Pdf;
 import packageModels.PdfGestionList;
+
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ImportPdfController {
 
     private Stage importPdfStage;
     private Pdf pdf;
+    private Desktop desktop = Desktop.getDesktop();
     private boolean okClicked = false;
 
     /**
@@ -60,10 +67,17 @@ public class ImportPdfController {
         File file = fileChooser.showOpenDialog(importPdfStage);
 
         if (file != null) {
+            //TODO : Faire un if avec isInputValid pour check que tout les champs sont biens rempli
 
-                namePdfField.setText(file.getName());
+            namePdfField.setText(file.getName());
 
-            handleOk(file);
+            LocalDate date = LocalDate.now();
+
+            Pdf newPdf = new Pdf(1, "name", date, file, false);
+
+            newPdf.setName(namePdfField.getText());
+
+            PdfGestionList.getInstance().addPdf(newPdf);
 
         } else {
             // Show the error message
@@ -73,6 +87,17 @@ public class ImportPdfController {
             alert.setHeaderText("Ce fichier n'est pas un PDF");
             alert.setContentText("Veuillez choisir un autre fichier");
             alert.showAndWait();
+        }
+    }
+
+    private void openFile(File file) {
+        try {
+            desktop.open(file);
+        } catch (IOException ex) {
+            Logger.getLogger(
+                    ImportPdfController.class.getName()).log(
+                    Level.SEVERE, null, ex
+            );
         }
     }
 
@@ -90,22 +115,10 @@ public class ImportPdfController {
      * Called when the user clicks ok.
      */
     @FXML
-    private void handleOk(File file) {
-
-        //TODO : Faire un if avec isInputValid pour check que tout les champs sont biens rempli
-
-        LocalDate date = LocalDate.now();
-        Pdf newPdf = new Pdf(date);
-
-        //newPdf.setName(namePdfField.getText());
-        newPdf.setFile(file);
-
-        //PdfGestionList.getInstance().addPdf(newPdf);
+    private void handleOk() {
 
         okClicked = true;
-
         importPdfStage.close();
-
     }
 
     /**

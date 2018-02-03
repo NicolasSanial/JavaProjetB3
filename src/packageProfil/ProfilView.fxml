@@ -10,9 +10,9 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="packageProfil.ProfilController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="packageProfil.ProfilController">
    <children>
-      <MenuBar layoutX="-3.0" prefHeight="29.0" prefWidth="600.0">
+      <MenuBar prefHeight="29.0" prefWidth="800.0">
         <menus>
           <Menu mnemonicParsing="false" text="PDF">
             <items>
@@ -30,7 +30,7 @@
       </MenuBar>
       <Label layoutX="32.0" layoutY="64.0" text="Bonjour" />
       <Label layoutX="96.0" layoutY="64.0" text="Label" />
-      <Button fx:id="closeButton" layoutX="514.0" layoutY="353.0" mnemonicParsing="false" onAction="#closeAction" text="Quitter" />
-      <Button layoutX="380.0" layoutY="353.0" mnemonicParsing="false" onAction="#goPageConnectionButtonAction" text="Se déconnecter" />
+      <Button fx:id="closeButton" layoutX="721.0" layoutY="555.0" mnemonicParsing="false" onAction="#closeAction" text="Quitter" />
+      <Button layoutX="587.0" layoutY="555.0" mnemonicParsing="false" onAction="#goPageConnectionButtonAction" text="Se déconnecter" />
    </children>
 </AnchorPane>
