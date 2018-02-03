@@ -14,7 +14,7 @@ public class Pdf {
     private StringProperty name;
     private StringProperty path_pdf;
     private ObjectProperty<LocalDate> uploadDate;
-    //private File file;
+    private File file;
     private boolean status_public;
 
     /**
@@ -23,7 +23,7 @@ public class Pdf {
     public Pdf(){ super(); }
 
     /**
-     * Constructor Pdf
+     * Constructor 1 Pdf
      */
     public Pdf(int id, String name, String path_pdf, LocalDate uploadDate, boolean status) {
 
@@ -31,6 +31,20 @@ public class Pdf {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.path_pdf = new SimpleStringProperty(path_pdf);
+        this.uploadDate = new SimpleObjectProperty(uploadDate);
+        this.status_public = status;
+    }
+
+    /**
+     * Constructor 2 Pdf
+     */
+    public Pdf(int id, String name, String path_pdf, File file, LocalDate uploadDate, boolean status) {
+
+        super();
+        this.id = new SimpleIntegerProperty(id);
+        this.name = new SimpleStringProperty(name);
+        this.path_pdf = new SimpleStringProperty(path_pdf);
+        this.file = file;
         this.uploadDate = new SimpleObjectProperty(uploadDate);
         this.status_public = status;
     }
@@ -103,7 +117,6 @@ public class Pdf {
     /**
      *  getters and setters for the file
      */
-    /*
     public File getFile() {
         return file;
     }
@@ -111,7 +124,7 @@ public class Pdf {
     public void setFile(File file) {
         this.file = file;
     }
-    */
+
 
     /**
      *  getters and setters for Status

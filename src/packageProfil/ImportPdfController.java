@@ -80,7 +80,7 @@ public class ImportPdfController {
             dateUploadPdfField.setText(format(date));
             dateUploadPdfField.setEditable(false);
 
-            Pdf newPdf = new Pdf(1, namePdfField.getText(), date, file, false);
+            Pdf newPdf = new Pdf(1, namePdfField.getText(), file.getPath(), file, date, false);
 
             pdf = newPdf;
 
