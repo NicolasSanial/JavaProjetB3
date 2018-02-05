@@ -80,10 +80,7 @@ public class ImportPdfController {
             dateUploadPdfField.setText(format(date));
             dateUploadPdfField.setEditable(false);
 
-            //TODO : Corriger la méthode moveFileToFolder pour qu'on arrive à déplacer les pdf et remplacer file.getPath() par newPath
-            String newPath = PdfGestionList.getInstance().moveFileToFolder(file, file.getPath());
-
-            Pdf newPdf = new Pdf(1, namePdfField.getText(), newPath, file, date, false);
+            Pdf newPdf = new Pdf(1, namePdfField.getText(), file.getPath(), file, date, false);
 
             pdf = newPdf;
 
@@ -125,19 +122,43 @@ public class ImportPdfController {
     @FXML
     private void handleOk() {
 
-        if(pdf != null){
+        if(pdf != null) {
+
             pdf.setName(namePdfField.getText());
 
-            PdfGestionDAO.getInstance().addPdf(pdf);
+            if (PdfGestionList.getInstance().searchPdfByName(pdf.getName()) == false) {
 
-            okClicked = true;
-            importPdfStage.close();
-        }else{
+                if (PdfGestionList.getInstance().searchPdfByFile(pdf.getFile()) == true){
 
-            okClicked = true;
-            importPdfStage.close();
+                    String newPath = PdfGestionList.getInstance().moveFileToFolder(pdf.getFile(), pdf.getPathPdf());
+
+                    pdf.setPathPdf(newPath);
+
+                    PdfGestionDAO.getInstance().addPdf(pdf);
+
+                    okClicked = true;
+                    importPdfStage.close();
+
+                } else {
+                    // Show the error message
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initOwner(importPdfStage);
+                    alert.setTitle("Erreur de fichier");
+                    alert.setHeaderText("Un PDF ayant le même contenu existe");
+                    alert.setContentText("Veuillez choisir un autre PDF");
+                    alert.showAndWait();
+                }
+
+            } else {
+                // Show the error message
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(importPdfStage);
+                alert.setTitle("Erreur de nom");
+                alert.setHeaderText("Un PDF ayant ce nom existe déjà");
+                alert.setContentText("Veuillez choisir un autre nom de fichier");
+                alert.showAndWait();
+            }
         }
-
     }
 
     /**
