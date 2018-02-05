@@ -133,7 +133,8 @@ public class PdfGestionList {
     public String moveFileToFolder(File file, String originPath) {
 
         File afile = new File(originPath);
-        File bfile = new File("C:/Users/TyraeliuM/Documents/PDF");
+        String name = afile.getName();
+        File bfile = new File("/home/sanial/IdeaProjects/JavaProjectB3/PdfFolder/"+ name);
 
         InputStream inStream = null;
         OutputStream outStream = null;
