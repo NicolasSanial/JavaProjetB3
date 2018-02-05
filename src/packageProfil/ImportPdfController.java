@@ -81,9 +81,9 @@ public class ImportPdfController {
             dateUploadPdfField.setEditable(false);
 
             //TODO : Corriger la méthode moveFileToFolder pour qu'on arrive à déplacer les pdf et remplacer file.getPath() par newPath
-            //String newPath = PdfGestionList.getInstance().moveFileToFolder(file, file.getPath());
+            String newPath = PdfGestionList.getInstance().moveFileToFolder(file, file.getPath());
 
-            Pdf newPdf = new Pdf(1, namePdfField.getText(), file.getPath(), file, date, false);
+            Pdf newPdf = new Pdf(1, namePdfField.getText(), newPath, file, date, false);
 
             pdf = newPdf;
 
@@ -125,13 +125,19 @@ public class ImportPdfController {
     @FXML
     private void handleOk() {
 
-        pdf.setName(namePdfField.getText());
+        if(pdf != null){
+            pdf.setName(namePdfField.getText());
 
+            PdfGestionDAO.getInstance().addPdf(pdf);
 
-        PdfGestionDAO.getInstance().addPdf(pdf);
+            okClicked = true;
+            importPdfStage.close();
+        }else{
 
-        okClicked = true;
-        importPdfStage.close();
+            okClicked = true;
+            importPdfStage.close();
+        }
+
     }
 
     /**

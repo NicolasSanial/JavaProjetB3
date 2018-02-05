@@ -1,6 +1,5 @@
 package packageProfil;
 
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,18 +7,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import packageMain.DateUtil;
 import packageModels.Pdf;
 import packageModels.PdfGestionList;
+import packageModels.UserGestionDAO;
 
 import java.util.List;
 
-public class SplitPdfController {
+public class PdfSplitController {
 
     private Stage splitPdfStage;
 
     private ProfilView profilView;
-
 
     private boolean okClicked = false;
 
@@ -68,11 +66,11 @@ public class SplitPdfController {
     /**
      * Method called on the view to fill
      */
-    public void setDataTable(ProfilView profilView) {
+    public void setPdfDataTable(PdfSplitView pdfSplitView) {
 
         this.profilView = profilView;
 
-        //UserGestionDAO.getInstance().loadUserintoList();
+        UserGestionDAO.getInstance().loadUserintoList();
 
         //We pull the UserList instance and convert to collections for listView exploitation
         List<Pdf> listPdf = PdfGestionList.getInstance().getListPdf();
@@ -81,5 +79,4 @@ public class SplitPdfController {
         // Add observable list data to the table
         pdfTable.setItems(pdfData);
     }
-
 }

@@ -52,7 +52,7 @@ public class AdminView extends Application {
 
             //We pull the controller to get data
             AdminController controller = loader.getController();
-            controller.setDataTable(this);
+            controller.setUserDataTable(this);
 
             //Add scene on stage and show stage
             adminStage.setScene(scene);

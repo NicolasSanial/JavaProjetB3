@@ -144,7 +144,7 @@ public class PdfGestionDAO {
                 newPdf.setId(result.getInt("id_pdf"));
                 newPdf.setName(result.getString("name_pdf"));
                 newPdf.setPathPdf(result.getString("path_pdf"));
-                newPdf.setUploadDate(DateUtil.parse(result.getString("birthday_date")));
+                newPdf.setUploadDate(DateUtil.parse(result.getString("upload_date")));
                 newPdf.setStatus(result.getBoolean("status_public"));
 
                 Pdf pdf = PdfGestionList.getInstance().getPdfById(newPdf.getId());

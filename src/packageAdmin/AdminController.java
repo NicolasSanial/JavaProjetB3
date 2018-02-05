@@ -72,7 +72,7 @@ public class AdminController {
     /**
      * Method called on the view to fill
      */
-    public void setDataTable(AdminView adminView) {
+    public void setUserDataTable(AdminView adminView) {
 
         this.adminView = adminView;
 

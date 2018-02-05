@@ -71,34 +71,5 @@ public class ProfilView extends Application {
             return false;
         }
     }
-
-    public static boolean initSplitPDF() {
-        try {
-            // Load connection layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(ProfilView.class.getResource("SplitPdfView.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            Stage SplitPdfStage = new Stage();
-            SplitPdfStage.setTitle("Split un PDF");
-            SplitPdfStage.initModality(Modality.WINDOW_MODAL);
-            SplitPdfStage.initOwner(profilStage);
-            Scene scene = new Scene(page);
-            SplitPdfStage.setScene(scene);
-
-            SplitPdfController controller = loader.getController();
-            controller.setSplitPdfStage(SplitPdfStage);
-
-            // Show the dialog and wait until the user closes it
-            SplitPdfStage.showAndWait();
-
-            //return controller.isOkClicked();
-            return true;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 }
 

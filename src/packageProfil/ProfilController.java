@@ -51,6 +51,7 @@ public class ProfilController {
 
     @FXML
     private void splitPageAction() {
-        ProfilView.initSplitPDF();
+        Stage stageConnect = new Stage();
+        new PdfSplitView().start(stageConnect);
     }
 }

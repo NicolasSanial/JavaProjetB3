@@ -133,15 +133,13 @@ public class PdfGestionList {
     public String moveFileToFolder(File file, String originPath) {
 
         File afile = new File(originPath);
-        File bfile = new File("./IdeaProjects/JavaProjectB3/PdfFolder");
+        File bfile = new File("C:/Users/TyraeliuM/Documents/PDF");
 
         InputStream inStream = null;
         OutputStream outStream = null;
 
         try{
             int length;
-
-
 
             inStream = new FileInputStream(afile);
             outStream = new FileOutputStream(bfile);
@@ -159,7 +157,7 @@ public class PdfGestionList {
             outStream.close();
 
             //delete the original file
-            afile.delete();
+            //afile.delete();
 
         }catch(Exception e){
             e.printStackTrace();
