@@ -1,6 +1,6 @@
 package packageModels;
 
-import java.time.LocalDate;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -89,19 +89,17 @@ public class PdfGestionList {
     /**
      * Method how add pdf into list
      * @param pdf
-     * TODO : Faire hériter addPdfList() de PdfGestionDAO avec un super.return ...?
      */
     public void addPdf (Pdf pdf){
         Pdf p = getPdfById(pdf.getId());
-        //if(searchPdfByName(pdf.getName())== false && p == null){
+        if(searchPdfByName(pdf.getName())== false && p == null){
             listPdf.add(pdf);
-        //}
+        }
     }
 
     /**
      * Method how add pdf into list
      * @param pdf
-     * TODO : Faire hériter modifyPdfList() de PdfGestionDAO avec un super.return ...?
      */
     public void modifyPdf(Pdf pdf){
         Pdf p = getPdfById(pdf.getId());
@@ -125,12 +123,49 @@ public class PdfGestionList {
     /**
      * Method how remove pdf from list
      * @param pdf
-     * TODO : Faire hériter modifyPdfList() de PdfGestionDAO avec un super.return ...?
      */
     public void removePdfByObJ(Pdf pdf){
         if(searchPdfByName(pdf.getName()) == true && pdf != null) {
             listPdf.remove(pdf);
         }
+    }
+
+    public String moveFileToFolder(File file, String originPath) {
+
+        File afile = new File(originPath);
+        File bfile = new File("./IdeaProjects/JavaProjectB3/PdfFolder");
+
+        InputStream inStream = null;
+        OutputStream outStream = null;
+
+        try{
+            int length;
+
+
+
+            inStream = new FileInputStream(afile);
+            outStream = new FileOutputStream(bfile);
+
+            byte[] buffer = new byte[1024];
+
+            //copy the file content in bytes
+            while ((length = inStream.read(buffer)) > 0){
+
+                outStream.write(buffer, 0, length);
+
+            }
+
+            inStream.close();
+            outStream.close();
+
+            //delete the original file
+            afile.delete();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return bfile.getPath();
     }
 
     /**

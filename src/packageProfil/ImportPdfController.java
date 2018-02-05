@@ -5,8 +5,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.pdfbox.pdmodel.PDDocument;
 import packageModels.Pdf;
+import packageModels.PdfGestionDAO;
 import packageModels.PdfGestionList;
 
 import java.awt.*;
@@ -80,6 +80,9 @@ public class ImportPdfController {
             dateUploadPdfField.setText(format(date));
             dateUploadPdfField.setEditable(false);
 
+            //TODO : Corriger la méthode moveFileToFolder pour qu'on arrive à déplacer les pdf et remplacer file.getPath() par newPath
+            //String newPath = PdfGestionList.getInstance().moveFileToFolder(file, file.getPath());
+
             Pdf newPdf = new Pdf(1, namePdfField.getText(), file.getPath(), file, date, false);
 
             pdf = newPdf;
@@ -123,7 +126,9 @@ public class ImportPdfController {
     private void handleOk() {
 
         pdf.setName(namePdfField.getText());
-        PdfGestionList.getInstance().addPdf(pdf);
+
+
+        PdfGestionDAO.getInstance().addPdf(pdf);
 
         okClicked = true;
         importPdfStage.close();
