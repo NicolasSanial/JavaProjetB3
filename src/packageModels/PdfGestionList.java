@@ -61,27 +61,6 @@ public class PdfGestionList {
     }
 
     /**
-     * Method how search if user login exist or not
-     * @param file
-     */
-    public boolean searchPdfByFile(File file){
-
-        boolean result = false;
-
-        Iterator<Pdf> it = listPdf.iterator();
-        while(it.hasNext()){
-
-            Pdf pdf = it.next();
-
-            if(pdf.getFile() == file){
-
-                result = true;
-            }
-        }
-        return result;
-    }
-
-    /**
      * Method how search object user with login
      * @param name
      */
@@ -182,15 +161,15 @@ public class PdfGestionList {
     /**
      * Method who take the choosen pdf to save in it local in a project folder. Allowing the recuperation
      * of pdf file with path into BDD
-     * @param file : file to save in the desired folder
+     * @param pdf : file to save in the desired folder
      * @param originPath : default path of the pdf
      * @return path of the new pdf to save it in BD
      */
-    public String moveFileToFolder(File file, String originPath) {
+    public String moveFileToFolder(Pdf pdf, String originPath) {
 
         File afile = new File(originPath);
 
-        String name = afile.getName();
+        String name = pdf.getName();
 
         // CARE ABOUT THE FOLDER PATH (Win = C:/Users/TyraeliuM/Documents/PDF AND Linux = /home/sanial/IdeaProjects/JavaProjectB3/PdfFolder/)
         File bfile = new File("C:/Users/TyraeliuM/Documents/PDF/"+ name);

@@ -60,6 +60,7 @@ public class PdfSplitController {
      */
     @FXML
     private void handleCancel() {
+
         splitPdfStage.close();
     }
 

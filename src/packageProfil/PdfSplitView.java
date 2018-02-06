@@ -48,6 +48,7 @@ public class PdfSplitView extends Application {
 
             //We pull the controller to get data
             PdfSplitController controller = loader.getController();
+            controller.setSplitPdfStage(SplitPdfStage);
             controller.setPdfDataTable(this);
 
             //Add scene on stage and show stage

@@ -23,6 +23,7 @@ public class ImportPdfController {
     private Stage importPdfStage;
     private Desktop desktop = Desktop.getDesktop();
     private boolean okClicked = false;
+    private boolean pdfImported = false;
     private Pdf pdf;
 
     /**
@@ -84,6 +85,8 @@ public class ImportPdfController {
 
             pdf = newPdf;
 
+            pdfImported = true;
+
         } else {
             // Show the error message
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -122,34 +125,23 @@ public class ImportPdfController {
     @FXML
     private void handleOk() {
 
-        if(pdf != null) {
+        if (pdfImported == true) {
 
             pdf.setName(namePdfField.getText());
 
             if (PdfGestionList.getInstance().searchPdfByName(pdf.getName()) == false) {
 
-                if (PdfGestionList.getInstance().searchPdfByFile(pdf.getFile()) == true){
+                String newPath = PdfGestionList.getInstance().moveFileToFolder(pdf, pdf.getPathPdf());
 
-                    String newPath = PdfGestionList.getInstance().moveFileToFolder(pdf.getFile(), pdf.getPathPdf());
+                pdf.setPathPdf(newPath);
 
-                    pdf.setPathPdf(newPath);
+                PdfGestionDAO.getInstance().addPdf(pdf);
 
-                    PdfGestionDAO.getInstance().addPdf(pdf);
-
-                    okClicked = true;
-                    importPdfStage.close();
-
-                } else {
-                    // Show the error message
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.initOwner(importPdfStage);
-                    alert.setTitle("Erreur de fichier");
-                    alert.setHeaderText("Un PDF ayant le même contenu existe");
-                    alert.setContentText("Veuillez choisir un autre PDF");
-                    alert.showAndWait();
-                }
+                okClicked = true;
+                importPdfStage.close();
 
             } else {
+
                 // Show the error message
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(importPdfStage);
@@ -158,6 +150,15 @@ public class ImportPdfController {
                 alert.setContentText("Veuillez choisir un autre nom de fichier");
                 alert.showAndWait();
             }
+        } else {
+
+            // Show the error message
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(importPdfStage);
+            alert.setTitle("Erreur d'import");
+            alert.setHeaderText("Vous n'avez pas importé de PDF");
+            alert.setContentText("Veuillez cliquer sur annuler");
+            alert.showAndWait();
         }
     }
 

@@ -2,6 +2,8 @@ package packageModels;
 
 import packageMain.DateUtil;
 import packageMain.JDBC;
+
+import java.io.File;
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -108,6 +110,12 @@ public class PdfGestionDAO {
             pdfToPutInList.setStatus(result.getBoolean("status_public"));
             pdfToPutInList.setUploadDate(DateUtil.parse(result.getString("upload_date")));
 
+            String path = pdfToPutInList.getPathPdf();
+
+            File file = new File(path);
+
+            pdfToPutInList.setFile(file);
+
             PdfGestionList.getInstance().addPdf(pdfToPutInList);
 
         }catch(SQLException ex){
@@ -146,6 +154,12 @@ public class PdfGestionDAO {
                 newPdf.setPathPdf(result.getString("path_pdf"));
                 newPdf.setUploadDate(DateUtil.parse(result.getString("upload_date")));
                 newPdf.setStatus(result.getBoolean("status_public"));
+
+                String path = newPdf.getPathPdf();
+
+                File file = new File(path);
+
+                newPdf.setFile(file);
 
                 Pdf pdf = PdfGestionList.getInstance().getPdfById(newPdf.getId());
 

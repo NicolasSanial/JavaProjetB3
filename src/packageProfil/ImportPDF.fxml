@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -7,19 +10,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="packageProfil.ImportPdfController">
+<AnchorPane prefHeight="248.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="packageProfil.ImportPdfController">
    <children>
-      <Button layoutX="309.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="25.0" prefWidth="83.0" text="Ok" />
-      <Button layoutX="200.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="83.0" text="Annuler" />
-      <Button layoutX="30.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleImportOne" prefHeight="26.0" prefWidth="171.0" text="Un seul fichier" />
-      <Button layoutX="30.0" layoutY="90.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Plusieurs fichiers" />
-      <TextField fx:id="namePdfField" layoutX="30.0" layoutY="300.0" prefHeight="25.0" prefWidth="192.0" />
-      <TextField fx:id="dateUploadPdfField" layoutX="30.0" layoutY="230.0" />
-      <VBox layoutX="248.0" layoutY="27.0" prefHeight="298.0" prefWidth="323.0" />
+      <Button layoutX="253.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="25.0" prefWidth="83.0" text="Ok" />
+      <Button layoutX="144.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="83.0" text="Annuler" />
+      <Button layoutX="30.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleImportOne" prefHeight="26.0" prefWidth="121.0" text="Choisir un PDF" />
+      <TextField fx:id="namePdfField" layoutX="217.0" layoutY="125.0" prefHeight="25.0" prefWidth="235.0" />
+      <TextField fx:id="dateUploadPdfField" layoutX="217.0" layoutY="50.0" prefHeight="25.0" prefWidth="235.0" />
       <Label layoutX="30.0" layoutY="20.0" text="Upload :" />
-      <Label layoutX="30.0" layoutY="140.0" text="PDF publics ? :" />
-      <ChoiceBox layoutX="30.0" layoutY="170.0" prefWidth="150.0" />
-      <Label layoutX="30.0" layoutY="270.0" text="Nom du fichier :" />
-      <Label layoutX="30.0" layoutY="210.0" text="Date d'upload :" />
+      <Label layoutX="30.0" layoutY="95.0" text="PDF publics ? :" />
+      <ChoiceBox layoutX="30.0" layoutY="125.0" prefHeight="25.0" prefWidth="121.0" />
+      <Label layoutX="217.0" layoutY="95.0" text="Nom du fichier :" />
+      <Label layoutX="217.0" layoutY="20.0" text="Date d'upload :" />
    </children>
 </AnchorPane>
