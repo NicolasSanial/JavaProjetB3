@@ -8,11 +8,11 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="mysql-connector-java-5.1" level="project" />
-    <orderEntry type="library" exported="" name="fontbox-2.0.8" level="project" />
-    <orderEntry type="library" exported="" name="pdfbox-2.0.8" level="project" />
-    <orderEntry type="library" exported="" name="pdfbox-tools-2.0.8" level="project" />
-    <orderEntry type="library" exported="" name="preflight-2.0.8" level="project" />
-    <orderEntry type="library" exported="" name="xmpbox-2.0.8" level="project" />
     <orderEntry type="library" exported="" name="mysql-connector-java-5.1.45-bin" level="project" />
+    <orderEntry type="library" name="fontbox-2.0.8" level="project" />
+    <orderEntry type="library" name="pdfbox-2.0.8" level="project" />
+    <orderEntry type="library" name="pdfbox-tools-2.0.8" level="project" />
+    <orderEntry type="library" name="preflight-2.0.8" level="project" />
+    <orderEntry type="library" name="xmpbox-2.0.8" level="project" />
   </component>
 </module>

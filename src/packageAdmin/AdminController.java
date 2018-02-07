@@ -118,6 +118,7 @@ public class AdminController {
      */
     @FXML
     private javafx.scene.control.Button closeButton;
+
     @FXML
     private void closeButtonAction() {
         Stage stageConn = new Stage();
