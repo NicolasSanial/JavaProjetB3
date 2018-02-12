@@ -92,7 +92,7 @@ public class PdfSplitController {
     }
 
     @FXML
-    private void handleSplit() {
+    public void handleSplit() {
         //If number page is set and pdf selected
         Pdf pdfSelected = pdfTable.getSelectionModel().getSelectedItem();
 
@@ -107,10 +107,11 @@ public class PdfSplitController {
                     int numberPage = Integer.parseInt(numberPagePdf.getText());
 
                     //Set the file to give to get a document
-                    //File file = new File(pdfSelected.getPathPdf());
-
+                    File file = new File(pdfSelected.getPathPdf());
+                    System.out.println(pdfSelected.getPathPdf().toString());
                     //Set the document
-                    document = PDDocument.load(new File(pdfSelected.getPathPdf()));
+                    System.out.println(file);
+                    document = PDDocument.load(file);
 
                     //Instantiating Splitter class
                     Splitter splitter = new Splitter();

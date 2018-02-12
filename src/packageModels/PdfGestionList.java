@@ -172,7 +172,7 @@ public class PdfGestionList {
         String name = pdf.getName();
 
         // CARE ABOUT THE FOLDER PATH (Win = C:/Users/TyraeliuM/Documents/PDF AND Linux = /home/sanial/IdeaProjects/JavaProjectB3/PdfFolder/)
-        File bfile = new File("C:/Users/TyraeliuM/Documents/PDF/"+ name);
+        File bfile = new File("/home/sanial/IdeaProjects/JavaProjectB3/PdfFolder/"+ name);
 
         InputStream inStream = null;
         OutputStream outStream = null;
