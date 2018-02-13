@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import packageMain.DateUtil;
 import packageModels.User;
+import packageModels.UserGestionDAO;
 
 /**
  * View to edit data of an user
@@ -18,7 +19,7 @@ public class FormController {
     private boolean okClicked = false;
 
     /**
-     * Fields binded on the FXML
+     * Attribut corresponding to fields on the form add/modify user
      */
     @FXML
     private TextField loginField;
@@ -49,9 +50,11 @@ public class FormController {
     }
 
     /**
-    * Sets the person to be edited in the dialog.
-    */
+     * Sets the person to be edited in the dialog.
+     * @param user : used to fill the form
+     */
     public void setUser(User user) {
+
         this.user = user;
 
         loginField.setText(user.getLogin());
@@ -64,18 +67,21 @@ public class FormController {
     }
 
     /**
-    * Returns true if the user clicked OK, false otherwise.
-    */
+     * Returns true if the user clicked OK, false otherwise.
+     * @return okClicked if it is true or false
+     */
     public boolean isOkClicked() {
         return okClicked;
     }
 
     /**
-    * Called when the user clicks ok.
+    * Called when the user clicks ok and put values on object user with the values rihgted in the form, return true to okClicked
     */
     @FXML
     private void handleOk() {
+
         if (isInputValid()) {
+
             user.setLogin(loginField.getText());
             user.setPassword(passwordField.getText());
             user.setFirstName(firstNameField.getText());
@@ -83,7 +89,12 @@ public class FormController {
             user.setEmail(emailField.getText());
             user.setBirthday(DateUtil.parse(birthdayField.getText()));
 
+            UserGestionDAO.getInstance().loadUserintoList();
+
+            AdminView.getAdminStage();
+
             okClicked = true;
+
             formStage.close();
         }
     }
@@ -126,14 +137,16 @@ public class FormController {
         }
 
         if (errorMessage.length() == 0) {
+
             return true;
+
         } else {
 
             // Show the error message
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(formStage);
             alert.setTitle("Champs invalides");
-            alert.setHeaderText("Corrigez les champs mal remplis");
+            alert.setHeaderText("Corrigez les champs mals remplis");
             alert.setContentText(errorMessage);
 
             alert.showAndWait();

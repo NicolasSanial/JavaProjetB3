@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="packageProfil.PdfSplitController">
+<children>
+    <TextField fx:id="numberPagePdf" layoutX="201.0" layoutY="350.0" prefHeight="25.0" prefWidth="73.0" />
+    <Button layoutX="285.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleSplit" prefHeight="25.0" prefWidth="58.0" text="Split" />
+    <TextField fx:id="name1Pdf" layoutX="314.0" layoutY="113.0" prefHeight="25.0" prefWidth="183.0" />
+    <Button layoutX="510.0" layoutY="113.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Ok" />
+    <TextField fx:id="name2Pdf" layoutX="314.0" layoutY="177.0" prefHeight="25.0" prefWidth="183.0" />
+    <Button layoutX="510.0" layoutY="177.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Ok" />
+    <Button layoutX="510.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="58.0" text="Retour" />
+    <TableView fx:id="pdfTable" layoutX="14.0" layoutY="14.0" prefHeight="326.0" prefWidth="259.0">
+        <columns>
+            <TableColumn fx:id="pdfNameColumn" prefWidth="258.0" text="Nom du PDF" />
+        </columns>
+    </TableView>
+    <Label layoutX="14.0" layoutY="354.0" text="Nombre de page du premier PDF :" />
+    <Label layoutX="314.0" layoutY="87.0" text="Nom du PDF 1 :" />
+    <Label layoutX="314.0" layoutY="151.0" text="Nom du PDF 2 :" />
+</children>
+</AnchorPane>

@@ -6,21 +6,34 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import packageModels.Pdf;
+import packageModels.PdfGestionDAO;
+import packageModels.PdfGestionList;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static packageMain.DateUtil.format;
 
 public class ImportPdfController {
 
     private Stage importPdfStage;
-    private Pdf pdf;
+    private Desktop desktop = Desktop.getDesktop();
     private boolean okClicked = false;
+    private boolean pdfImported = false;
+    private Pdf pdf;
 
     /**
      * Fields binded on the FXML
      */
     @FXML
     private TextField namePdfField;
+
+    @FXML
+    private TextField dateUploadPdfField;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -53,36 +66,52 @@ public class ImportPdfController {
 
     @FXML
     private void handleImportOne() {
-        // TODO : faire un if qui appel la methode de vérification isInputValid
 
+        final FileChooser fileChooser = new FileChooser();
+        configuringFileChooser(fileChooser);
+
+        File file = fileChooser.showOpenDialog(importPdfStage);
+
+        if (file != null) {
+            //TODO : Faire un if avec isInputValid pour check que tout les champs sont biens rempli
 
             LocalDate date = LocalDate.now();
-            Pdf newPdf = new Pdf(date);
 
-            final FileChooser fileChooser = new FileChooser();
-            configuringFileChooser(fileChooser);
-            fileChooser.setTitle("Ouvrir le pdf");
-            File file = fileChooser.showOpenDialog(importPdfStage);
+            namePdfField.setText(file.getName());
+            dateUploadPdfField.setText(format(date));
+            dateUploadPdfField.setEditable(false);
 
-            if (file != null) {
-                namePdfField.setText(file.getName());
-                newPdf.setName(namePdfField.getText());
-                okClicked = true;
-                importPdfStage.close();
-            } else {
-                // Show the error message
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(importPdfStage);
-                alert.setTitle("Aucun fichier reconnu");
-                alert.setHeaderText("Ce fichier n'est pas un PDF");
-                alert.setContentText("Veuillez choisir un autre fichier");
-                alert.showAndWait();
-            }
+            Pdf newPdf = new Pdf(1, namePdfField.getText(), file.getPath(), file, date, false);
+
+            pdf = newPdf;
+
+            pdfImported = true;
+
+        } else {
+            // Show the error message
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(importPdfStage);
+            alert.setTitle("Aucun fichier reconnu");
+            alert.setHeaderText("Ce fichier n'est pas un PDF");
+            alert.setContentText("Veuillez choisir un autre fichier");
+            alert.showAndWait();
+        }
+    }
+
+    private void openFile(File file) {
+        try {
+            desktop.open(file);
+        } catch (IOException ex) {
+            Logger.getLogger(
+                    ImportPdfController.class.getName()).log(
+                    Level.SEVERE, null, ex
+            );
+        }
     }
 
     private static void configuringFileChooser(FileChooser fileChooser) {
         // Set title for FileChooser
-        fileChooser.setTitle("Select Some Files");
+        fileChooser.setTitle("Ouvrir le PDF");
 
         // Set Initial Directory
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
@@ -95,18 +124,41 @@ public class ImportPdfController {
      */
     @FXML
     private void handleOk() {
-        if (isInputValid()) {
-            /*
-            user.setLogin(loginField.getText());
-            user.setPassword(passwordField.getText());
-            user.setFirstName(firstNameField.getText());
-            user.setLastName(lastNameField.getText());
-            user.setEmail(emailField.getText());
-            user.setBirthday(DateUtil.parse(birthdayField.getText()));
 
-            okClicked = true;
-            */
-            importPdfStage.close();
+        if (pdfImported == true) {
+
+            pdf.setName(namePdfField.getText());
+
+            if (PdfGestionList.getInstance().searchPdfByName(pdf.getName()) == false) {
+
+                String newPath = PdfGestionList.getInstance().moveFileToFolder(pdf, pdf.getPathPdf());
+
+                pdf.setPathPdf(newPath);
+
+                PdfGestionDAO.getInstance().addPdf(pdf);
+
+                okClicked = true;
+                importPdfStage.close();
+
+            } else {
+
+                // Show the error message
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(importPdfStage);
+                alert.setTitle("Erreur de nom");
+                alert.setHeaderText("Un PDF ayant ce nom existe déjà");
+                alert.setContentText("Veuillez choisir un autre nom de fichier");
+                alert.showAndWait();
+            }
+        } else {
+
+            // Show the error message
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(importPdfStage);
+            alert.setTitle("Erreur d'import");
+            alert.setHeaderText("Vous n'avez pas importé de PDF");
+            alert.setContentText("Veuillez cliquer sur annuler");
+            alert.showAndWait();
         }
     }
 

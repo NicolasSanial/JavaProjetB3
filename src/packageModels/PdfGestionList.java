@@ -1,21 +1,18 @@
 package packageModels;
 
-import java.time.LocalDate;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class PdfGestionList {
 
-
     /**
      * Constructor for the singleton
      */
-    public PdfGestionList() {
-        loadPdfintoList();
-    }
+    public PdfGestionList() { }
 
-    // initialisation du singleton
+    // Instance initialisation
     private static PdfGestionList instance = null;
 
     /**
@@ -23,8 +20,10 @@ public class PdfGestionList {
      */
     public static PdfGestionList getInstance(){
         if(instance == null){
+
             instance = new PdfGestionList();
         }
+
         return instance;
     }
 
@@ -45,11 +44,16 @@ public class PdfGestionList {
      * @param name
      */
     public boolean searchPdfByName(String name){
+
         boolean result = false;
+
         Iterator<Pdf> it = listPdf.iterator();
         while(it.hasNext()){
+
             Pdf pdf = it.next();
+
             if(pdf.getName().equals(name)){
+
                 result = true;
             }
         }
@@ -61,11 +65,16 @@ public class PdfGestionList {
      * @param name
      */
     public Pdf searchObjPdfByName (String name){
+
         Pdf p = null;
         Iterator<Pdf> it = listPdf.iterator();
+
         while(it.hasNext()){
+
             Pdf pdf = it.next();
+
             if(pdf.getName().equals(name)){
+
                 p = pdf;
             }
         }
@@ -77,25 +86,33 @@ public class PdfGestionList {
      * @param id
      */
     public Pdf getPdfById(int id){
+
         Pdf p = null;
+
         Iterator<Pdf> it = listPdf.iterator();
+
         while(it.hasNext()){
+
             Pdf pdf = it.next();
+
             if(pdf.getId() == id){
                 p = pdf;
             }
         }
+
         return p;
     }
 
     /**
      * Method how add pdf into list
      * @param pdf
-     * TODO : Faire hériter addPdfList() de PdfGestionDAO avec un super.return ...?
      */
-    public void addPdfList (Pdf pdf){
+    public void addPdf (Pdf pdf){
+
         Pdf p = getPdfById(pdf.getId());
+
         if(searchPdfByName(pdf.getName())== false && p == null){
+
             listPdf.add(pdf);
         }
     }
@@ -103,13 +120,15 @@ public class PdfGestionList {
     /**
      * Method how add pdf into list
      * @param pdf
-     * TODO : Faire hériter modifyPdfList() de PdfGestionDAO avec un super.return ...?
      */
-    public void modifyPdfList(Pdf pdf){
+    public void modifyPdf(Pdf pdf){
+
         Pdf p = getPdfById(pdf.getId());
+
         if(searchPdfByName(pdf.getName()) == true && p != null){
+
             p.setName(pdf.getName());
-            p.setStatus(pdf.isStatus());
+            p.setStatus(pdf.getStatus());
         }
     }
 
@@ -117,9 +136,12 @@ public class PdfGestionList {
      * Method to call to remove pdf by id (call removePdfList(Pdf) with an pdf parameter
      * @param id
      */
-    public void removePdfListById(int id){
+    public void removePdfById(int id){
+
         Pdf p = getPdfById(id);
+
         if (p != null){
+
             listPdf.remove(p);
         }
     }
@@ -127,22 +149,57 @@ public class PdfGestionList {
     /**
      * Method how remove pdf from list
      * @param pdf
-     * TODO : Faire hériter modifyPdfList() de PdfGestionDAO avec un super.return ...?
      */
-    public void removePdfListByObJ(Pdf pdf){
+    public void removePdfByObJ(Pdf pdf){
+
         if(searchPdfByName(pdf.getName()) == true && pdf != null) {
+
             listPdf.remove(pdf);
         }
     }
 
     /**
-     *  Method how load test data in list when application start
+     * Method who take the choosen pdf to save in it local in a project folder. Allowing the recuperation
+     * of pdf file with path into BDD
+     * @param pdf : file to save in the desired folder
+     * @param originPath : default path of the pdf
+     * @return path of the new pdf to save it in BD
      */
-    public void loadPdfintoList(/* User user */){
+    public String moveFileToFolder(Pdf pdf, String originPath) {
 
-        /* On va aller récup dans la BD plus tard, là on met des données en dur */
-        listPdf.add(new Pdf(1, "pdf1",  LocalDate.of(1994, 2, 21), true));
-        listPdf.add(new Pdf(2, "pdf2",  LocalDate.of(1995, 2, 21), true));
-        listPdf.add(new Pdf(3, "pdf3",  LocalDate.of(1996, 2, 21), true));
+        File afile = new File(originPath);
+
+        String name = pdf.getName();
+
+        // CARE ABOUT THE FOLDER PATH (Win = C:/Users/TyraeliuM/Documents/PDF AND Linux = /home/sanial/IdeaProjects/JavaProjectB3/PdfFolder/)
+        File bfile = new File("/home/sanial/IdeaProjects/JavaProjectB3/PdfFolder/"+ name);
+
+        InputStream inStream = null;
+        OutputStream outStream = null;
+
+        try{
+
+            int length;
+
+            inStream = new FileInputStream(afile);
+            outStream = new FileOutputStream(bfile);
+
+            byte[] buffer = new byte[1024];
+
+            //copy the file content in bytes
+            while ((length = inStream.read(buffer)) > 0){
+
+                outStream.write(buffer, 0, length);
+            }
+
+            inStream.close();
+            outStream.close();
+
+        }catch(Exception e){
+
+            e.printStackTrace();
+        }
+
+        return bfile.getPath();
     }
 }

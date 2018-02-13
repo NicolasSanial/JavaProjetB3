@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class ConnectionView extends Application {
@@ -20,6 +19,7 @@ public class ConnectionView extends Application {
 
         this.connectionStage = connectionStage;
         connectionStage.setTitle("PDF-Stocker");
+
         initConnectionView();
     }
 
@@ -28,6 +28,7 @@ public class ConnectionView extends Application {
      */
     public void initConnectionView() {
         try {
+
             // Load connection layout from fxml file.
             Parent connec = FXMLLoader.load(getClass().getResource("ConnectionView.fxml"));
             Scene connectionScene = new Scene(connec);
@@ -35,7 +36,9 @@ public class ConnectionView extends Application {
             // Part of code how display scene in stage en show stage
             connectionStage.setScene(connectionScene);
             connectionStage.show();
+
         } catch (IOException e) {
+
             e.printStackTrace();
         }
     }

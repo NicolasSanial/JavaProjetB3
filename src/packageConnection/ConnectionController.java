@@ -22,8 +22,10 @@ public class ConnectionController {
     */
     @FXML
     private void goPageAdminButtonAction() {
+
         Stage stageAdmin = new Stage();
         new AdminView().start(stageAdmin);
+
         Stage stageConn = (Stage) closeButton.getScene().getWindow();
         stageConn.close();
     }
@@ -33,10 +35,14 @@ public class ConnectionController {
      */
     @FXML
     private void closeButtonAction() {
+
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Method verifying the input when the connection button is used and return appropriate pop up (profil page or error)
+     */
     @FXML
     private void connectionAction() {
 
@@ -44,14 +50,17 @@ public class ConnectionController {
         String pwd = passwordLabel.getText();
 
         if(UserGestionList.getInstance().searchUserByLogin(login) == true){
+
             if(UserGestionList.getInstance().checkPassword(login, pwd) == true){
 
+                //input valid so display profilUser
                 Stage stageProfil = new Stage();
                 new ProfilView().start(stageProfil);
                 Stage stage = (Stage) closeButton.getScene().getWindow();
                 stage.close();
 
             }else{
+
                 // error pop in when pwd not correspond to the login
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.initOwner(AdminView.getAdminStage());
@@ -62,6 +71,7 @@ public class ConnectionController {
                 alert.showAndWait();
             }
         }else{
+
             // error pop in when login is not recognized
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(AdminView.getAdminStage());

@@ -1,8 +1,15 @@
 package packageMain;
 
+import packageModels.Pdf;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
+import java.util.Properties;
 
 public class DateUtil {
 
@@ -20,9 +27,12 @@ public class DateUtil {
      * @return formatted string
      */
     public static String format(LocalDate date) {
+
         if (date == null) {
+
             return null;
         }
+
         return DATE_FORMATTER.format(date);
     }
 
@@ -36,11 +46,22 @@ public class DateUtil {
      * @return the date object or null if it could not be converted
      */
     public static LocalDate parse(String dateString) {
+
         try {
+
             return DATE_FORMATTER.parse(dateString, LocalDate::from);
+
         } catch (DateTimeParseException e) {
+
             return null;
         }
+    }
+
+    public static Date asDate(LocalDate localDate) {
+
+        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        return date;
     }
 
     /**
@@ -50,6 +71,7 @@ public class DateUtil {
      * @return true if the String is a valid date
      */
     public static boolean validDate(String dateString) {
+
         // Try to parse the String.
         return DateUtil.parse(dateString) != null;
     }

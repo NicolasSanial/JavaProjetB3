@@ -33,6 +33,7 @@ public class ProfilController {
     private void goPageConnectionButtonAction() {
         Stage stageConnect = new Stage();
         new ConnectionView().start(stageConnect);
+
         Stage stageConn = (Stage) closeButton.getScene().getWindow();
         stageConn.close();
     }
@@ -47,4 +48,16 @@ public class ProfilController {
     private void importPdfPageAction() {
         ProfilView.initImportPDF();
     }
+
+    @FXML
+    private void splitPageAction() {
+        Stage stageConnect = new Stage();
+        new PdfSplitView().start(stageConnect);
+    }
+
+    @FXML
+    private void mergePageAction() {
+        ProfilView.initMergePdf();
+    }
+
 }

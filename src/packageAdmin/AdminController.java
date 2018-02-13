@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import packageConnection.ConnectionView;
 import packageMain.DateUtil;
 import packageModels.User;
+import packageModels.UserGestionDAO;
 import packageModels.UserGestionList;
 
 import java.time.LocalDate;
@@ -46,7 +47,8 @@ public class AdminController {
     /**
     * Constructor (called in the view)
     */
-    public AdminController(){}
+    public AdminController(){
+    }
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -70,10 +72,11 @@ public class AdminController {
     /**
      * Method called on the view to fill
      */
-    public void setDataTable(AdminView adminView) {
+    public void setUserDataTable(AdminView adminView) {
 
         this.adminView = adminView;
 
+        UserGestionDAO.getInstance().loadUserintoList();
         //We pull the UserList instance and convert to collections for listView exploitation
         List<User> listUser = UserGestionList.getInstance().getListUser();
         ObservableList<User> userData = FXCollections.observableArrayList(listUser);
@@ -97,9 +100,6 @@ public class AdminController {
             emailLabel.setText(user.getEmail());
             birthdayLabel.setText(DateUtil.format(user.getBirthday()));
 
-            //Get info on field and modify object with
-            UserGestionList.getInstance().modifyUserList(user);
-
         } else {
 
             // User is null, remove all the text
@@ -118,6 +118,7 @@ public class AdminController {
      */
     @FXML
     private javafx.scene.control.Button closeButton;
+
     @FXML
     private void closeButtonAction() {
         Stage stageConn = new Stage();
@@ -154,7 +155,7 @@ public class AdminController {
             User u = listUser.get(i);
             if(u != null) {
                 if (u.getFirstName() == selectedPerson.getFirstName() && u.getLastName() == selectedPerson.getLastName()) {
-                    UserGestionList.getInstance().removeUserListByObJ(selectedPerson);
+                    UserGestionDAO.getInstance().removeUserByObJ(selectedPerson);
                 }
             }
         }
@@ -162,13 +163,16 @@ public class AdminController {
 
     @FXML
     private void handleCreateUser() {
-        User tempUser = new User(1, "Kant","password" ,"nicolas","sanial","nico.san@smile.fr", LocalDate.of(1994, 2, 21));
-        boolean okClicked = AdminView.showUserForm(tempUser);
-        if (okClicked) {
-            UserGestionList.getInstance().getListUser().add(tempUser);
 
-            //TODO : plus tard avec la co à la BD pour check les id
-            //UserGestionList.getInstance().addUserList(tempUser);
+        User tempUser = new User(1,"login","password","firstName","lastName","email", LocalDate.of(0001, 1, 01));
+
+        boolean okClicked = AdminView.showUserForm(tempUser);
+
+        if (okClicked) {
+
+            UserGestionDAO.getInstance().addUser(tempUser);
+
+            //We reload the user in the BD to the listUser
         }
     }
 
@@ -177,8 +181,11 @@ public class AdminController {
         User selectedPerson = userTable.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
             boolean okClicked = AdminView.showUserForm(selectedPerson);
+
             if (okClicked) {
                 showUserDetails(selectedPerson);
+                UserGestionDAO.getInstance().modifyUser(selectedPerson);
+
             }
 
         } else {
