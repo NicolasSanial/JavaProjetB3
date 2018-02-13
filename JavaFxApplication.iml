@@ -14,5 +14,6 @@
     <orderEntry type="library" name="pdfbox-tools-2.0.8" level="project" />
     <orderEntry type="library" name="preflight-2.0.8" level="project" />
     <orderEntry type="library" name="xmpbox-2.0.8" level="project" />
+    <orderEntry type="library" name="commons-logging-1.2" level="project" />
   </component>
 </module>

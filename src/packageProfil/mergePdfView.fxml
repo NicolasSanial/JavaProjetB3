@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="378.0" prefWidth="459.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="packageProfil.MergePdfController">
+   <children>
+      <TextField fx:id="pdf1Field" layoutX="57.0" layoutY="81.0" prefHeight="25.0" prefWidth="250.0" />
+      <TextField fx:id="pdf2Field" layoutX="57.0" layoutY="147.0" prefHeight="25.0" prefWidth="250.0" />
+      <Button layoutX="330.0" layoutY="81.0" mnemonicParsing="false" onAction="#handleImportFirstPdf" prefHeight="25.0" prefWidth="74.0" text="Importer" />
+      <Label layoutX="57.0" layoutY="23.0" text="Sélectionnez les deux PDF à merge :" />
+      <Button layoutX="145.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleMerge" prefHeight="25.0" prefWidth="74.0" text="Merger" />
+      <TextField fx:id="pdfGeneretedField" layoutX="57.0" layoutY="276.0" prefHeight="25.0" prefWidth="250.0" />
+      <Button layoutX="330.0" layoutY="147.0" mnemonicParsing="false" onAction="#handleImportSecondPdf" prefHeight="25.0" prefWidth="74.0" text="Importer" />
+      <Label layoutX="57.0" layoutY="247.0" text="PDF généré :" />
+      <Button layoutX="330.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleSave" text="Enregistrer" />
+      <Label layoutX="57.0" layoutY="57.0" text="PDF 1 :" />
+      <Label layoutX="57.0" layoutY="123.0" text="PDF 2 :" />
+      <Button layoutX="204.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleCancel" text="Retour" />
+   </children>
+</AnchorPane>

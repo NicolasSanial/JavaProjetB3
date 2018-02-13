@@ -10,16 +10,16 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="packageProfil.ProfilController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="packageProfil.ProfilController">
    <children>
-      <MenuBar prefHeight="29.0" prefWidth="800.0">
+      <MenuBar prefHeight="29.0" prefWidth="600.0">
         <menus>
           <Menu mnemonicParsing="false" text="PDF">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#importPdfPageAction" text="Import PDF" />
               <MenuItem mnemonicParsing="false" text="Export PDF" />
                   <MenuItem mnemonicParsing="false" onAction="#splitPageAction" text="Split PDF" />
-                  <MenuItem mnemonicParsing="false" text="Show public PDF" />
+                  <MenuItem mnemonicParsing="false" onAction="#mergePageAction" text="Merge PDF" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -29,9 +29,9 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Label layoutX="32.0" layoutY="64.0" text="Bonjour" />
-      <Label layoutX="96.0" layoutY="64.0" text="Label" />
-      <Button fx:id="closeButton" layoutX="721.0" layoutY="555.0" mnemonicParsing="false" onAction="#closeAction" text="Quitter" />
-      <Button layoutX="587.0" layoutY="555.0" mnemonicParsing="false" onAction="#goPageConnectionButtonAction" text="Se déconnecter" />
+      <Label layoutX="31.0" layoutY="56.0" text="Bonjour" />
+      <Label layoutX="95.0" layoutY="56.0" text="Label" />
+      <Button fx:id="closeButton" layoutX="532.0" layoutY="461.0" mnemonicParsing="false" onAction="#closeAction" text="Quitter" />
+      <Button layoutX="420.0" layoutY="461.0" mnemonicParsing="false" onAction="#goPageConnectionButtonAction" text="Se déconnecter" />
    </children>
 </AnchorPane>

@@ -14,11 +14,14 @@ import org.apache.pdfbox.multipdf.Splitter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import packageModels.Pdf;
+import packageModels.PdfGestionDAO;
 import packageModels.PdfGestionList;
 import packageModels.UserGestionDAO;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 
@@ -106,12 +109,8 @@ public class PdfSplitController {
                     //convert String to int
                     int numberPage = Integer.parseInt(numberPagePdf.getText());
 
-                    //Set the file to give to get a document
-                    File file = new File(pdfSelected.getPathPdf());
-                    System.out.println(pdfSelected.getPathPdf().toString());
                     //Set the document
-                    System.out.println(file);
-                    document = PDDocument.load(file);
+                    document = PDDocument.load(new File(pdfSelected.getPathPdf()));
 
                     //Instantiating Splitter class
                     Splitter splitter = new Splitter();
@@ -124,8 +123,8 @@ public class PdfSplitController {
 
                     //Saving 2 pdf, cutted on an fixed page from an only one pdf
                     int i = 1;
-                    PDDocument document1 = new PDDocument();
-                    PDDocument document2 = new PDDocument();
+                    PDDocument documentPart1 = new PDDocument();
+                    PDDocument documentPart2 = new PDDocument();
 
                     while(iterator.hasNext()) {
 
@@ -133,13 +132,13 @@ public class PdfSplitController {
                             i++;
                             PDDocument doc = iterator.next();
                             PDPage page = doc.getPage(0);
-                            document1.addPage(page);
+                            documentPart1.addPage(page);
 
                         }else{
                             i++;
                             PDDocument doc = iterator.next();
                             PDPage page = doc.getPage(0);
-                            document2.addPage(page);
+                            documentPart2.addPage(page);
 
                         }
                     }
@@ -148,15 +147,28 @@ public class PdfSplitController {
 
                     //format the path to get 2 differents names for the to created pdf
                     int lastDot = path.lastIndexOf(".");
-                    String[] modifiedPath =  {path.substring(0, i), path.substring(i)};
+                    String modifiedPath =  path.substring(0,lastDot);
 
                     //Save the 2 pdf into differents files paths
-                    document1.save(modifiedPath + "1.pdf");
-                    document1.save(modifiedPath + "2.pdf");
+                    documentPart1.save(modifiedPath + "1.pdf");
+                    documentPart2.save(modifiedPath + "2.pdf");
+
+                    File filePart1 = File.createTempFile(modifiedPath, "1.pdf");
+                    documentPart1.save(filePart1);
+                    File filePart2 = File.createTempFile(modifiedPath, "2.pdf");
+                    documentPart2.save(filePart2);
+
+                    LocalDate date = LocalDate.now();
+
+                    Pdf pdf1 = new Pdf(1, pdfSelected.getName() +"1.pdf", modifiedPath +"1.pdf", filePart1, date, false);
+                    Pdf pdf2 = new Pdf(1, pdfSelected.getName() +"2.pdf", modifiedPath +"2.pdf", filePart2, date, false);
+
+                    PdfGestionDAO.getInstance().addPdf(pdf1);
+                    PdfGestionDAO.getInstance().addPdf(pdf2);
 
                     document.close();
-                    document1.close();
-                    document2.close();
+                    documentPart1.close();
+                    documentPart2.close();
 
                     // pop in appear when nothing selected
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
