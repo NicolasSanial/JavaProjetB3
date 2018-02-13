@@ -54,4 +54,10 @@ public class ProfilController {
         Stage stageConnect = new Stage();
         new PdfSplitView().start(stageConnect);
     }
+
+    @FXML
+    private void mergePageAction() {
+        ProfilView.initMergePdf();
+    }
+
 }

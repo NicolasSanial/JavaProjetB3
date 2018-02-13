@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import packageModels.Pdf;
 
 import java.io.IOException;
 
@@ -51,22 +52,59 @@ public class ProfilView extends Application {
             loader.setLocation(ProfilView.class.getResource("ImportPDF.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
-            Stage ImportPdfStage = new Stage();
-            ImportPdfStage.setTitle("Import de PDF");
-            ImportPdfStage.initModality(Modality.WINDOW_MODAL);
-            ImportPdfStage.initOwner(profilStage);
+            Stage importPdfStage = new Stage();
+            importPdfStage.setTitle("Import de PDF");
+            importPdfStage.initModality(Modality.WINDOW_MODAL);
+            importPdfStage.initOwner(profilStage);
             Scene scene = new Scene(page);
-            ImportPdfStage.setScene(scene);
+            importPdfStage.setScene(scene);
 
             ImportPdfController controller = loader.getController();
-            controller.setImportPdfStage(ImportPdfStage);
+            controller.setImportPdfStage(importPdfStage);
 
             // Show the dialog and wait until the user closes it
-            ImportPdfStage.showAndWait();
+            importPdfStage.showAndWait();
 
             return controller.isOkClicked();
 
         } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Show the view to manage user (form to add/modify)
+     * @return true if the button OK is pressed
+     */
+    public static boolean initMergePdf() {
+
+        try {
+
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(ProfilView.class.getResource("mergePdfView.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage mergePdfStage = new Stage();
+            mergePdfStage.setTitle("Merge de Pdf");
+            mergePdfStage.initModality(Modality.WINDOW_MODAL);
+            mergePdfStage.initOwner(profilStage);
+            Scene scene = new Scene(page);
+            mergePdfStage.setScene(scene);
+
+            // Set the user into the controller.
+            MergePdfController controller = loader.getController();
+            controller.setMergePdfStage(mergePdfStage);
+
+            // Show the dialog and wait until the user closes it
+            mergePdfStage.showAndWait();
+
+            return controller.isOkClicked();
+
+        } catch (IOException e) {
+
             e.printStackTrace();
             return false;
         }
